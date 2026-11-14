@@ -5,7 +5,7 @@
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
 **Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS 4, Supabase y Vercel
-**Código:** repositorio `saludable57/nextjs-dashboard` (rama `master`)
+**Código:** repositorio `sgabrielaca25-pixel/nextjs-dashboard` (rama `master`)
 **Publicado en:** https://duelo64-theta.vercel.app
 
 > Este documento recoge el diseño completo del sistema. El detalle de cada funcionalidad está en `docs/specs/`, la arquitectura técnica en `docs/infraestructura/` y la identidad visual en `docs/diseno/`. Ninguna funcionalidad nueva debe programarse sin una spec aprobada.
