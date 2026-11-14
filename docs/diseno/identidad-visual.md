@@ -1,10 +1,28 @@
 # Identidad visual · Duelo 64
 
 ## Nombre y marca
-**DUELO 64** — el logo lleva al menú.
-- Logo oficial: `docs/diseno/marca/logo-duelo64.png` (X entrelazada que evoca las casillas marcadas, "DUELO" en blanco y "64" en cian).
-- Colores del logo: cian claro `#B4EFFF`, cian `#16C1DF` sobre fondo oscuro `#222222`.
-- Dentro de la app se usa la versión simple: icono de nube + "DUELO" en negro y "64" en azul `#0061A2`.
+**Duelo 64** — el logo lleva al menú.
+
+### Logo oficial: Opción A, nube "64" azul y roja
+Archivo: `docs/diseno/marca/logo-opcion-a.png` (muestra todas las aplicaciones).
+- **Símbolo:** nube blanca con el número **64**: el **6 en azul** (`#0061A2`, jugador 1) y el **4 en rojo** (`#B3261E`, jugador 2). Representa el duelo entre los dos colores del juego y retoma la nube que ya usaba la app.
+- **Logotipo:** "Duelo 64" en una sans geométrica redondeada, negrita.
+
+| Aplicación | Cómo se usa |
+|---|---|
+| Ícono de app (180, 120 y 64 px) | Nube con "64" azul y rojo sobre cuadro redondeado azul `#3898EC` |
+| Favicon (32 y 16 px) | Solo la nube blanca sobre azul (sin número: no se lee a ese tamaño) |
+| Header claro | Nube + "Duelo 64" en negro sobre `#F5F8FF` |
+| Header oscuro (propuesta) | Nube oscura con "64" en azul y rojo claros + "Duelo 64" en blanco sobre `#0F1D31` |
+| Una tinta | Negro sobre blanco, o calado en blanco sobre azul `#0061A2` |
+
+Reglas:
+- No cambiar los colores del 6 y el 4: siempre azul y rojo, en ese orden.
+- Por debajo de 32 px se usa solo la nube.
+- El logotipo es imagen; los textos de la interfaz siguen en Arial (decisión 16).
+
+> El logo anterior (X entrelazada en cian) se descartó y queda archivado en `docs/diseno/marca/descartados/` (decisión 17).
+> Las imágenes de `docs/diseno/referencias/` muestran el header anterior (icono de nube + "DUELO 64"); la estructura y los colores siguen vigentes.
 
 ## Tono de voz
 Directo, competitivo y amigable. Frases cortas. Tutea al jugador.

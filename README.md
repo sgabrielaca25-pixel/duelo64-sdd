@@ -1,9 +1,9 @@
 # Duelo 64 · SDD
 
 Documentación del proyecto **Duelo 64** con Spec-Driven Development.
-Este repositorio contiene solo los documentos. El código está en [`sgabrielaca25-pixel/nextjs-dashboard`](https://github.com/sgabrielaca25-pixel/nextjs-dashboard) y el juego se publica en https://duelo64-theta.vercel.app
+Este repositorio contiene solo los documentos. El código está en [`sgabrielaca25-pixel/nextjs-dashboard`](https://github.com/sgabrielaca25-pixel/nextjs-dashboard) y el juego se publica en https://juegoduelo64.vercel.app
 
-![Duelo 64](docs/diseno/marca/logo-duelo64.png)
+![Duelo 64](docs/diseno/marca/logo-opcion-a.png)
 
 ## Por dónde empezar
 1. **[docs/SDD.md](docs/SDD.md)**: documento maestro (resumen, reglas, requerimientos, arquitectura, datos, seguridad, riesgos).

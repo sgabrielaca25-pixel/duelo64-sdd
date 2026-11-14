@@ -1,7 +1,7 @@
 # Proyecto: Duelo 64 · SDD
 
 Repositorio de documentación (Spec-Driven Development) del juego Duelo 64.
-Aquí NO hay código. El código está en `sgabrielaca25-pixel/nextjs-dashboard` y se publica en https://duelo64-theta.vercel.app
+Aquí NO hay código. El código está en `sgabrielaca25-pixel/nextjs-dashboard` y se publica en https://juegoduelo64.vercel.app
 
 ## Documentación (léela antes de cualquier cambio)
 - Documento maestro: @docs/SDD.md

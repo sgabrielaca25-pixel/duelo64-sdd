@@ -1,12 +1,12 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.1
+**Versión:** 1.2
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
 **Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS 4, Supabase y Vercel
 **Código:** repositorio `sgabrielaca25-pixel/nextjs-dashboard` (rama `master`)
-**Publicado en:** https://duelo64-theta.vercel.app
+**Publicado en:** https://juegoduelo64.vercel.app
 
 > Este documento recoge el diseño completo del sistema. El detalle de cada funcionalidad está en `docs/specs/`, la arquitectura técnica en `docs/infraestructura/` y la identidad visual en `docs/diseno/`. Ninguna funcionalidad nueva debe programarse sin una spec aprobada.
 
@@ -168,7 +168,7 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 
 ## 11. Diseño de interfaz
 - Identidad visual completa: `docs/diseno/identidad-visual.md`
-- Logo: `docs/diseno/marca/logo-duelo64.png`
+- Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`
 - Pantallas de referencia (claro y propuesta oscura): `docs/diseno/referencias/` (empezar por `00-mapa-de-pantallas.png`)
 
 Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → Partida → Resultado → Revancha o Menú. Perfil desde el header.
@@ -210,3 +210,4 @@ Ver `docs/infraestructura/despliegue.md`.
 |---|---|---|
 | 1.0 | 2026-11-14 | Primera versión del SDD: documenta el MVP publicado, 5 specs, identidad visual y referencias |
 | 1.1 | 2026-11-14 | Regla de color (jugador 1 azul, jugador 2 rojo), Arial como fuente oficial y pantalla de referencia (decisiones 14 y 16) |
+| 1.2 | 2026-11-14 | Logo oficial Opción A (decisión 17), nueva URL https://juegoduelo64.vercel.app y repositorio en la cuenta sgabrielaca25-pixel (decisión 18) |

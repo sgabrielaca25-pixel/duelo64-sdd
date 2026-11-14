@@ -88,5 +88,5 @@ Eventos del canal `partida-CÓDIGO`: `jugada`, `estado`, `pedir-estado`, `revanc
 - Variables: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (pública por diseño; lo que protege es RLS).
 
 ## Despliegue
-- Front: Vercel, despliegue continuo desde `master` → https://duelo64-theta.vercel.app
+- Front: Vercel, despliegue continuo desde `master` → https://juegoduelo64.vercel.app
 - Supabase → URL Configuration: Site URL = dominio de Vercel; Redirect URLs incluye `localhost:3000/**`.

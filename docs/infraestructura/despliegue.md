@@ -5,7 +5,7 @@
 |---|---|---|
 | Local | `http://localhost:3000` (`npm run dev`) | Desarrollo y pruebas |
 | Preview | URL que Vercel crea por cada rama con push | Revisar cambios antes de unir |
-| Producción | https://duelo64-theta.vercel.app | Versión pública (rama `master`) |
+| Producción | https://juegoduelo64.vercel.app | Versión pública (rama `master`) |
 
 ## Flujo
 1. Rama propia → commits → `git push`.
@@ -24,7 +24,8 @@
 - No guardarlas como tipo *Secret* en Vercel: no se pueden editar (hay que borrarlas y crearlas de nuevo).
 
 ## Supabase
-- Authentication → URL Configuration: Site URL = `https://duelo64-theta.vercel.app`; Redirect URLs = `https://duelo64-theta.vercel.app/**` y `http://localhost:3000/**`.
+- El proyecto de Vercel está en la cuenta `sgabrielaca25-pixel` (equipo `sara-3f83`), conectado a `sgabrielaca25-pixel/nextjs-dashboard`, rama de producción `master`.
+- Authentication → URL Configuration: Site URL = `https://juegoduelo64.vercel.app`; Redirect URLs = `https://juegoduelo64.vercel.app/**` y `http://localhost:3000/**`.
 - SMTP propio (Gmail del juego, puerto 587, contraseña de aplicación) para el código de recuperación.
 - Realtime activado en la tabla `salas` (`alter publication supabase_realtime add table public.salas;`).
 - SQL en archivos numerados `1-perfiles.sql` … `10-fotos-sala.sql`, ejecutados en orden en el SQL Editor.
