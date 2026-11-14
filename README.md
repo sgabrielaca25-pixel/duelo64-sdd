@@ -22,7 +22,7 @@ duelo64-sdd/
     ├── decisiones.md             por qué se hizo cada cosa
     ├── specs/                    spec001 … spec005
     ├── infraestructura/          arquitectura y despliegue
-    ├── diseno/                   identidad, logo y 43 referencias
+    ├── diseno/                   identidad, logo y 21 referencias
     ├── sprints/tareas.md         tareas del front
     ├── templates/                plantillas de spec y decisión
     └── evidencias/               capturas del taller

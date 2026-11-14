@@ -4,7 +4,7 @@
 **Duelo 64** — el logo lleva al menú.
 
 ### Logo oficial: Opción A, nube "64" azul y roja
-Archivo: `docs/diseno/marca/logo-opcion-a.png` (muestra todas las aplicaciones).
+Archivo: `docs/diseno/marca/logo-opcion-a.png`. La app es solo de tema claro: del logo se usan las versiones claras (el header oscuro de la hoja no aplica).
 - **Símbolo:** nube blanca con el número **64**: el **6 en azul** (`#0061A2`, jugador 1) y el **4 en rojo** (`#B3261E`, jugador 2). Representa el duelo entre los dos colores del juego y retoma la nube que ya usaba la app.
 - **Logotipo:** "Duelo 64" en una sans geométrica redondeada, negrita.
 
@@ -13,7 +13,6 @@ Archivo: `docs/diseno/marca/logo-opcion-a.png` (muestra todas las aplicaciones).
 | Ícono de app (180, 120 y 64 px) | Nube con "64" azul y rojo sobre cuadro redondeado azul `#3898EC` |
 | Favicon (32 y 16 px) | Solo la nube blanca sobre azul (sin número: no se lee a ese tamaño) |
 | Header claro | Nube + "Duelo 64" en negro sobre `#F5F8FF` |
-| Header oscuro (propuesta) | Nube oscura con "64" en azul y rojo claros + "Duelo 64" en blanco sobre `#0F1D31` |
 | Una tinta | Negro sobre blanco, o calado en blanco sobre azul `#0061A2` |
 
 Reglas:
@@ -86,9 +85,8 @@ Ejemplos reales de la interfaz:
 Variantes propias en `globals.css`: `bajo` (alto ≤ 520 px) y `medio` (alto ≤ 800 px y ancho ≤ 1023 px).
 
 ## Referencias
-Las 43 imágenes de `docs/diseno/referencias/` muestran cómo debe verse cada pantalla (explicación completa en su `README.md`):
+Las 21 imágenes de `docs/diseno/referencias/` muestran cómo debe verse cada pantalla (explicación completa en su `README.md`):
 - `00-mapa-de-pantallas.png`: recorrido completo en celular.
 - `01` a `14`: login, registro, menú, perfil, sala privada, partida rápida, fases de la partida, desconexión, abandono y resultados.
-- Cada una tiene versión `-oscuro.png`: propuesta de modo oscuro "cielo de noche", **no implementada** (fuera del MVP).
 
 Antes de terminar una tarea de UI, compara la pantalla con su referencia.

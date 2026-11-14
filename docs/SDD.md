@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.2
+**Versión:** 1.3
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -38,7 +38,7 @@ Se juega en línea, cada persona desde su propio celular, tablet o computador, s
 - Perfil, foto y estadísticas → `spec005`
 
 ### Fuera del MVP
-Ranking global, chat, torneos o más de 2 jugadores, jugar contra la computadora, inicio de sesión con Google, app móvil nativa, niveles de dificultad, modo oscuro (hay propuesta visual en `docs/diseno/referencias/`, sin implementar).
+Ranking global, chat, torneos o más de 2 jugadores, jugar contra la computadora, inicio de sesión con Google, app móvil nativa, niveles de dificultad, modo oscuro (la app es solo de tema claro).
 
 ## 4. Usuarios
 | Usuario | Necesidad |
@@ -169,7 +169,7 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 ## 11. Diseño de interfaz
 - Identidad visual completa: `docs/diseno/identidad-visual.md`
 - Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`
-- Pantallas de referencia (claro y propuesta oscura): `docs/diseno/referencias/` (empezar por `00-mapa-de-pantallas.png`)
+- Pantallas de referencia: `docs/diseno/referencias/` (empezar por `00-mapa-de-pantallas.png`)
 
 Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → Partida → Resultado → Revancha o Menú. Perfil desde el header.
 
@@ -180,7 +180,6 @@ Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → P
 | 2 | Tipografía | Arial es la oficial (decisión 16), pero `layout.tsx` aún carga Geist sin usarla | Quitar la carga de Geist |
 | 3 | Autoridad en el cliente | El árbitro es el navegador del jugador 1; un cliente modificado del creador podría alterar el estado | Mover la validación a una función del servidor (Edge Function) en una versión futura |
 | 4 | Dependencia del árbitro | Si el árbitro se desconecta, la partida depende del mecanismo de abandono | Aceptado para el MVP |
-| 5 | Modo oscuro | Solo existe como propuesta visual | Fuera del MVP |
 
 ## 13. Pruebas y calidad
 - **Vitest:** simulación de partidas con dos jugadores falsos y Supabase simulado (sincronización, turno de 15 s, abandono, partida rápida).
@@ -211,3 +210,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | 1.0 | 2026-11-14 | Primera versión del SDD: documenta el MVP publicado, 5 specs, identidad visual y referencias |
 | 1.1 | 2026-11-14 | Regla de color (jugador 1 azul, jugador 2 rojo), Arial como fuente oficial y pantalla de referencia (decisiones 14 y 16) |
 | 1.2 | 2026-11-14 | Logo oficial Opción A (decisión 17), nueva URL https://juegoduelo64.vercel.app y repositorio en la cuenta sgabrielaca25-pixel (decisión 18) |
+| 1.3 | 2026-11-14 | Se quitan las referencias y la propuesta de modo oscuro: la app es solo de tema claro |

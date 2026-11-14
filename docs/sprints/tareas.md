@@ -21,7 +21,7 @@
 - [x] 1.16 Despliegue en Vercel con variables de entorno
 
 ## Lab render (U3)
-- [x] 2.1 Pantallas de referencia de las 14 vistas (claro y propuesta oscura) en `docs/diseno/referencias/`
+- [x] 2.1 Pantallas de referencia de las 14 vistas en `docs/diseno/referencias/`
 - [x] 2.2 Registrar la pantalla de referencia en docs/decisiones.md (decisión 14)
 
 ## Back (U4)
