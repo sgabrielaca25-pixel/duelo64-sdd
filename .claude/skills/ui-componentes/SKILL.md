@@ -10,7 +10,7 @@ description: Crear o modificar componentes y pantallas de Duelo 64 respetando su
    - Fondo `#E9F2FE`, tarjetas `#FDFEFF`, texto secundario `#505961`.
    - Jugador 1 SIEMPRE azul (`#3898EC`, texto `#0061A2`); jugador 2 SIEMPRE rojo (`#E5536B`, texto `#B3261E`).
    - Texto blanco pequeño solo sobre `#0061A2` o `#B3261E` (contraste AA).
-3. Fuente Geist (ya cargada en `app/layout.tsx`). No agregues otras fuentes.
+3. Fuente Arial (aplicada en `globals.css`). No agregues otras fuentes. Números de la nube en monoespaciada negrita.
 4. Componentes en `app/ui/`, uno por archivo, nombre en español en minúsculas con guiones (`barra-turno.tsx`), props tipadas con TypeScript.
 5. La UI no decide reglas: llama a funciones de `app/lib/juego.ts` o recibe el estado por props. Nada de `Math.random()` ni lógica de turnos en componentes.
 6. `"use client"` solo si hay clics, estado, efectos, temporizadores o canales. Si solo muestra datos, déjalo como Server Component.

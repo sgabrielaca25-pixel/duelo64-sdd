@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.0
+**Versión:** 1.1
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -52,7 +52,7 @@ Hay un solo rol en el sistema: **jugador autenticado**. No hay administradores.
 
 ### Elementos
 - **Nube:** números del 1 al 64 desordenados; el orden se sortea en cada partida.
-- **Tableros:** uno por jugador, 8×8.
+- **Tableros:** uno por jugador, 8×8. El jugador 1 siempre es azul y el jugador 2 siempre es rojo.
 - **Contador X/64**, cronómetro general y cuenta regresiva de 15 s para elegir.
 
 ### Ronda
@@ -177,7 +177,7 @@ Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → P
 | # | Tema | Detalle | Acción propuesta |
 |---|---|---|---|
 | 1 | Contraste | Texto blanco sobre `#3898EC` = 3.1:1 (no pasa AA) | Oscurecer el botón o usar texto oscuro |
-| 2 | Tipografía | `globals.css` aplica Arial al `body` aunque se carga Geist | Decidir una y quitar la otra |
+| 2 | Tipografía | Arial es la oficial (decisión 16), pero `layout.tsx` aún carga Geist sin usarla | Quitar la carga de Geist |
 | 3 | Autoridad en el cliente | El árbitro es el navegador del jugador 1; un cliente modificado del creador podría alterar el estado | Mover la validación a una función del servidor (Edge Function) en una versión futura |
 | 4 | Dependencia del árbitro | Si el árbitro se desconecta, la partida depende del mecanismo de abandono | Aceptado para el MVP |
 | 5 | Modo oscuro | Solo existe como propuesta visual | Fuera del MVP |
@@ -209,3 +209,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 1.0 | 2026-11-14 | Primera versión del SDD: documenta el MVP publicado, 5 specs, identidad visual y referencias |
+| 1.1 | 2026-11-14 | Regla de color (jugador 1 azul, jugador 2 rojo), Arial como fuente oficial y pantalla de referencia (decisiones 14 y 16) |

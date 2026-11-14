@@ -3,7 +3,7 @@
 > El juego se construyó antes de aplicar SDD. Estas tareas reconstruyen el orden en que se hizo el front para dejar trazabilidad con las specs. Todas están terminadas y publicadas.
 
 ## Front (U3)
-- [x] 1.1 Layout base con identidad visual (Geist, fondo `#E9F2FE`, tarjetas, colores de jugador)
+- [x] 1.1 Layout base con identidad visual (Arial, fondo `#E9F2FE`, tarjetas, colores de jugador)
 - [x] 1.2 Pantallas de cuenta: login y registro con validación y ojo de contraseña — spec001
 - [x] 1.3 Recuperar contraseña en 3 pasos (correo, código, nueva) — spec001
 - [x] 1.4 Header con nombre, foto y cerrar sesión; `proxy.ts` protege rutas — spec001
@@ -21,8 +21,8 @@
 - [x] 1.16 Despliegue en Vercel con variables de entorno
 
 ## Lab render (U3)
-- [ ] 2.1 Tres variantes del menú en `app/prototipo/a`, `/b` y `/c` con datos de prueba
-- [ ] 2.2 Elegir con la rúbrica y registrar la decisión 14 en docs/decisiones.md
+- [x] 2.1 Pantallas de referencia de las 14 vistas (claro y propuesta oscura) en `docs/diseno/referencias/`
+- [x] 2.2 Registrar la pantalla de referencia en docs/decisiones.md (decisión 14)
 
 ## Back (U4)
 - [x] Tablas `perfiles` y `salas` con RLS
@@ -31,4 +31,5 @@
 <!-- En la U4 se agrega docs/contratos/api.md con las funciones RPC y los eventos del canal -->
 
 ## Mejoras pendientes (propuestas, aún fuera del MVP)
+- [ ] Quitar la carga de Geist en `layout.tsx` (no se usa)
 - [ ] Ajustar textos blancos pequeños sobre `#3898EC` / `#E5536B` para cumplir AA (ver identidad-visual.md)

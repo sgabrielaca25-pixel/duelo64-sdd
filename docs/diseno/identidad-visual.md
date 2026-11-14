@@ -19,16 +19,16 @@ Ejemplos reales de la interfaz:
 |---|---|---|
 | Fondo | `#E9F2FE` | Fondo general (azul muy claro) |
 | Tarjetas | `#FDFEFF` | Tarjetas y paneles |
-| Azul (jugador) | `#3898EC` | Botón principal, X del tablero, números usados |
-| Azul · texto | `#0061A2` | Textos del jugador azul, "64" del logo |
-| Rojo (rival) | `#E5536B` | X y números del jugador rojo |
-| Rojo · texto | `#B3261E` | Textos del rival, errores, "Abandonar" |
+| Azul · jugador 1 | `#3898EC` | Botón principal; X, tablero y números usados del jugador 1 |
+| Azul · texto | `#0061A2` | Textos del jugador 1, "64" del logo |
+| Rojo · jugador 2 | `#E5536B` | X, tablero y números usados del jugador 2 |
+| Rojo · texto | `#B3261E` | Textos del jugador 2, errores, "Abandonar" |
 | Superficie secundaria | `#EEF4FF` | Botones secundarios, inputs, chips |
 | Resaltado amarillo | `#FFF1C2` (borde `#F5D77A`) | Lo que se busca o se copia: número objetivo, código de sala |
 | Texto principal | `#000000` | Títulos y texto |
 | Texto secundario | `#505961` | Ayudas, etiquetas |
 
-> En las referencias (generadas del código actual) el jugador propio se ve **azul** y el rival **rojo**. La documentación técnica original dice "jugador 1 azul, jugador 2 rojo". **Confirmar en el código cuál es la regla real** y dejar una sola aquí.
+> **Regla de color:** el jugador 1 (quien crea la sala) **siempre es azul** y el jugador 2 (invitado) **siempre es rojo**, en las dos pantallas. En las referencias, David es el jugador 1 y Camila el jugador 2 (decisión 9).
 
 ### Contraste (WCAG AA pide 4.5:1 en texto normal)
 | Combinación | Contraste | Resultado |
@@ -44,7 +44,8 @@ Ejemplos reales de la interfaz:
 **Regla:** texto blanco pequeño va sobre los tonos oscuros (`#0061A2`, `#B3261E`). Sobre los tonos claros (`#3898EC`, `#E5536B`) solo números grandes en negrita, como los de la nube.
 
 ## Tipografía
-- `layout.tsx` carga **Geist** (Google Fonts, `next/font/google`), pero hoy `globals.css` aplica **Arial** al `body`, así que en pantalla se ve Arial. **Pendiente decidir una** (ver SDD §12).
+- Fuente oficial: **Arial** (aplicada al `body` en `globals.css`). Títulos en negrita, texto en regular (decisión 16).
+- `layout.tsx` todavía carga Geist con `next/font` sin usarla: se puede quitar (ver SDD §12).
 - Los números de la nube van en **monoespaciada negrita**, con 3 tamaños y un pequeño desorden fijo.
 
 ## Estilo de componentes

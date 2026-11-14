@@ -28,7 +28,7 @@ Datos de ejemplo: el jugador es **David** (azul) y el rival es **Camila** (rojo)
 
 ## Reglas visuales que se ven en las imágenes
 - Fondo de la app `#E9F2FE`. Tarjetas `#FDFEFF` muy redondeadas (3rem) con sombra grande.
-- El jugador propio siempre es **azul** (`#3898EC` / `#0061A2`) y el rival siempre es **rojo** (`#E5536B` / `#B3261E`).
+- El jugador 1 (creador de la sala) siempre es **azul** (`#3898EC` / `#0061A2`) y el jugador 2 siempre es **rojo** (`#E5536B` / `#B3261E`). En estas imágenes David es el jugador 1.
 - Todos los botones son píldoras (`rounded-full`). El principal es azul `#3898EC`; los secundarios son `#EEF4FF`.
 - Lo que se busca o se copia va en amarillo `#FFF1C2` con borde `#F5D77A` (número objetivo, código de sala).
 - La nube es blanca con "bultos" arriba. Los números van en monoespaciada negrita, con 3 tamaños y un pequeño desorden fijo. Tiene 8 columnas en celular, 16 desde 640 px y 22 desde 1024 px.
@@ -58,4 +58,4 @@ Cada imagen tiene su versión `-oscuro.png`, y el mapa general también (`00-map
 
 ## Pendiente de diseño (no corregido en las imágenes claras)
 - El texto blanco sobre el botón `#3898EC` tiene un contraste de 3.1:1 y no pasa WCAG AA (4.5:1).
-- Los textos usan Arial porque `globals.css` la aplica al `body`, aunque `layout.tsx` carga Geist.
+- ~~Los textos usan Arial aunque `layout.tsx` carga Geist.~~ Resuelto: Arial es la fuente oficial (decisión 16); falta quitar la carga de Geist en `layout.tsx`.

@@ -17,7 +17,7 @@ El stack de referencia del diplomado es Next.js + Spring Boot + MySQL + AWS. La 
 Ver docs/decisiones.md.
 
 ## Front
-- Next.js 16, App Router, TypeScript, Tailwind CSS 4, fuente Geist con `next/font`.
+- Next.js 16, App Router, TypeScript, Tailwind CSS 4, fuente Arial (en `globals.css`).
 - Server Components leen datos de Supabase con la sesión; Client Components (`"use client"`) manejan clics, temporizadores, sonidos y canales.
 - Server Actions (`app/lib/acciones-*.ts`) + `useActionState` para formularios sin escribir `fetch`.
 - `proxy.ts` (antes `middleware`): renueva la sesión y protege `/jugar` y `/partida`.
