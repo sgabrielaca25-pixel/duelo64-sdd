@@ -31,6 +31,15 @@
 - [x] Storage `avatars` y SMTP propio
 <!-- En la U4 se agrega docs/contratos/api.md con las funciones RPC y los eventos del canal -->
 
+## Historial de partidas en el perfil (spec006, SDD v1.6)
+- [x] 3.1 SDD v1.6: spec006, RF-25, modelo de datos, RLS, pruebas y decisiones 19 y 20
+- [ ] 3.2 `app/lib/historial.ts` (`obtenerHistorial()`, últimas 20) y `historial.test.ts` (Vitest, 5 casos); script `npm test`
+- [ ] 3.3 `app/ui/historial-partidas.tsx` como sección del perfil, con lista desplazable y sin "Volver al menú"
+- [ ] 3.4 Mostrar el historial en `/jugar/perfil` debajo de las estadísticas; si falla la consulta, lista vacía
+- [ ] 3.5 `supabase/historial-partidas.sql`: tabla, RLS de solo lectura y trigger `registrar_historial` — **revisar y ejecutar a mano en el SQL Editor**
+- [ ] 3.6 Revisar el perfil a 390 y 1366 px; regenerar `05-perfil-movil.png` y `05-perfil-escritorio.png`
+- [ ] 3.7 PR `historial-en-perfil` → `master` y comprobar los criterios de aceptación de spec006 con dos cuentas
+
 ## Mejoras pendientes (propuestas, aún fuera del MVP)
 - [ ] Quitar la carga de **Geist Sans** en `layout.tsx`: solo la usa el placeholder del campo "Código de sala" (`placeholder:font-sans`). **Geist Mono sí se usa** (`font-mono`) y se queda
 - [x] Cambiar el header (`app/ui/header.tsx`) y el ícono de la pestaña al logo oficial Opción A (decisión 17): header con `public/logo-header-duelo64.png`, `app/icon.png` y `app/apple-icon.png` con el ícono completo (SDD v1.5, rama `logo-opcion-a`)

@@ -30,7 +30,7 @@ Ver docs/decisiones.md.
 | `/login`, `/registro` | Cuenta (grupo `(auth)`, layout centrado) |
 | `/recuperar-contrasena` → `/codigo` → `/nueva` | Recuperación en 3 pasos |
 | `/jugar` | Menú: partida rápida, crear sala, unirse con clave |
-| `/jugar/perfil` | Foto, nombre y estadísticas |
+| `/jugar/perfil` | Foto, nombre, estadísticas e historial de las últimas 20 partidas (spec006; el historial vive aquí, no tiene ruta propia) |
 | `/jugar/sala/[codigo]` | Sala de espera |
 | `/partida/[codigo]` | Partida en línea (otro header: cronómetro y Rendirse) |
 | `/partida/local` | Partida local de prueba (dos jugadores, una pantalla) |
@@ -46,31 +46,36 @@ app/
     juego.ts           REGLAS (lógica pura)
     partida-online.ts  MULTIJUGADOR (hook usePartidaOnline)
     partida-store.ts   estado de la partida local
+    historial.ts       obtenerHistorial(): últimas 20 partidas del jugador (+ historial.test.ts)
     acciones-*.ts      Server Actions
     supabase/          clientes de navegador y servidor
-  ui/              27 componentes visuales
+  ui/              componentes visuales (historial-partidas.tsx: sección del perfil)
+supabase/
+  historial-partidas.sql  tabla, RLS y trigger del historial (se ejecuta a mano)
 ```
 
 ## Back (Supabase)
 | Servicio | Uso |
 |---|---|
 | Auth | Registro, sesión en cookies, recuperación con código (SMTP propio de Gmail, puerto 587) |
-| Postgres | Tablas `perfiles` y `salas`, funciones SQL, triggers, RLS |
+| Postgres | Tablas `perfiles`, `salas` e `historial_partidas`, funciones SQL, triggers, RLS |
 | Realtime | Postgres Changes (sala de espera), Broadcast (jugadas), Presence (conexión) |
 | Storage | Bucket público `avatars`, cada usuario escribe solo en `avatars/<su-id>/`, máx. 2 MB |
 
 ### Funciones SQL (todas `security definer`, validan `auth.uid()`)
 `crear_sala`, `unirse_sala`, `salir_sala`, `buscar_partida_rapida`, `seguir_esperando`, `guardar_partida`, `terminar_partida`, `reiniciar_partida`, `latido`, `reclamar_abandono`.
-Triggers: `crear_perfil`, `al_empezar_partida`, `copiar_fotos_sala`.
+Triggers: `crear_perfil`, `al_empezar_partida`, `copiar_fotos_sala`, `registrar_historial` (cuando `salas.estado` pasa de `jugando` a `terminada`, inserta una fila en `historial_partidas`; nunca bloquea el fin de partida).
 
 ## Datos
 Entidades: Usuario (auth.users), Perfil, Sala, Partida (jsonb dentro de Sala)
 - Usuario 1—1 Perfil
 - Usuario 1—N Sala (como jugador 1 o jugador 2)
 - Sala 1—1 Partida (`salas.partida`, estado completo `EstadoPartida`)
+- Sala 1—N Historial (`historial_partidas`, una fila por partida terminada, única por `sala_codigo` + `inicio`)
 
 **perfiles**: `id` (uuid, FK auth.users), `nombre` (3–15), `jugadas`, `ganadas`, `perdidas`, `foto_url`, `creado_en`
 **salas**: `id`, `codigo` (6 caracteres, sin O/0 ni I/1), `estado` (esperando | jugando | terminada), `jugador1`, `jugador2`, `nombre1`, `nombre2`, `foto1`, `foto2`, `partida` (jsonb), `publica`, `activa_en`, `visto1`, `visto2`, `creada_en`
+**historial_partidas**: `id`, `sala_codigo`, `inicio`, `jugador1`, `jugador2`, `nombre1`, `nombre2`, `ganador` (uuid o null), `casillas_jugador1`, `casillas_jugador2`, `finalizada_en`. Solo lectura para el jugador (RLS)
 
 ## Multijugador: modelo de árbitro
 - El jugador 1 (creador de la sala) es el árbitro y tiene el estado oficial.

@@ -46,6 +46,7 @@ Ejemplos reales de la interfaz:
 | Rojo · jugador 2 | `#E5536B` | X, tablero y números usados del jugador 2 |
 | Rojo · texto | `#B3261E` | Textos del jugador 2, errores, "Abandonar" |
 | Superficie secundaria | `#EEF4FF` | Botones secundarios, inputs, chips |
+| Dorado · victoria | `#8A6100` | "Victoria" en el historial y número de "Ganadas" en el perfil (spec005, spec006). Derrota usa `#B3261E` y empate `#0061A2` |
 | Resaltado amarillo | `#FFF1C2` (borde `#F5D77A`) | Lo que se busca o se copia: número objetivo, código de sala |
 | Texto principal | `#000000` | Títulos y texto |
 | Texto secundario | `#505961` | Ayudas, etiquetas |
@@ -59,6 +60,8 @@ Ejemplos reales de la interfaz:
 | Texto secundario sobre tarjeta | 7.1:1 | ✓ AA |
 | Texto J1 `#0061A2` sobre tarjeta | 6.4:1 | ✓ AA |
 | Texto J2 `#B3261E` sobre tarjeta | 6.5:1 | ✓ AA |
+| Victoria `#8A6100` sobre `#EEF4FF` (tarjeta del historial) | 5.0:1 | ✓ AA |
+| Derrota `#B3261E` / empate `#0061A2` sobre `#EEF4FF` | 5.9:1 | ✓ AA |
 | Blanco sobre `#3898EC` | 3.1:1 | ⚠ Solo texto grande/negrita (≥ 18.7 px bold) |
 | Blanco sobre `#E5536B` | 3.6:1 | ⚠ Solo texto grande/negrita |
 | Blanco sobre `#0061A2` / `#B3261E` | 6.5:1 | ✓ AA |

@@ -21,7 +21,7 @@ duelo64-sdd/
     ├── SDD.md                    documento maestro
     ├── producto.md               problema, usuario, alcance
     ├── decisiones.md             por qué se hizo cada cosa
-    ├── specs/                    spec001 … spec005
+    ├── specs/                    spec001 … spec006
     ├── infraestructura/          arquitectura y despliegue
     ├── diseno/                   identidad, logo y 36 referencias
     ├── sprints/tareas.md         tareas del front
@@ -37,6 +37,7 @@ duelo64-sdd/
 | [003](docs/specs/spec003-partida-en-linea.md) | Partida en línea |
 | [004](docs/specs/spec004-fin-y-revancha.md) | Fin de partida y revancha |
 | [005](docs/specs/spec005-perfil-estadisticas.md) | Perfil y estadísticas |
+| [006](docs/specs/spec006-historial-partidas.md) | Historial de partidas (en el perfil) |
 
 ## Regla de oro
 Si algo cambia, primero se actualiza el documento y después el código.

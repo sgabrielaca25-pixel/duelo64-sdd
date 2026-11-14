@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.5
+**Versión:** 1.6
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -36,6 +36,7 @@ Se juega en línea, cada persona desde su propio celular, tablet o computador, s
 - Partida en línea en tiempo real → `spec003`
 - Fin de partida, abandono y revancha → `spec004`
 - Perfil, foto y estadísticas → `spec005`
+- Historial de partidas dentro del perfil (últimas 20) → `spec006`
 
 ### Fuera del MVP
 Ranking global, chat, torneos o más de 2 jugadores, jugar contra la computadora, inicio de sesión con Google, app móvil nativa, niveles de dificultad, modo oscuro (la app es solo de tema claro).
@@ -108,8 +109,9 @@ Estadísticas: se actualizan una sola vez; el empate solo suma a "jugadas". Reva
 | RF-22 | Diseño responsive sin scroll | 003 |
 | RF-23 | Foto de los dos jugadores en la sala de espera | 002 |
 | RF-24 | Aplicación publicada en internet | — |
+| RF-25 | Ver en el perfil las últimas 20 partidas | 006 |
 
-Estado: los 24 están implementados y publicados.
+Estado: RF-01 a RF-24 están implementados y publicados. RF-25 está en desarrollo (rama `historial-en-perfil`).
 
 ## 7. Requerimientos no funcionales
 | Código | Atributo | Requisito |
@@ -152,9 +154,11 @@ Eventos del canal `partida-CÓDIGO`: `jugada`, `estado`, `pedir-estado`, `revanc
 auth.users 1 ── 1 perfiles
 auth.users 1 ── N salas (como jugador1 o jugador2)
 salas      1 ── 1 partida (jsonb dentro de salas)
+salas      1 ── N historial_partidas (una fila por partida terminada, incluida cada revancha)
 ```
 **perfiles:** `id` (uuid, FK auth.users), `nombre` (3–15), `jugadas`, `ganadas`, `perdidas`, `foto_url`, `creado_en`
 **salas:** `id`, `codigo` (6 caracteres, sin O/0 ni I/1), `estado` (esperando · jugando · terminada), `jugador1`, `jugador2`, `nombre1`, `nombre2`, `foto1`, `foto2`, `partida` (jsonb), `publica`, `activa_en`, `visto1`, `visto2`, `creada_en`
+**historial_partidas:** `id`, `sala_codigo`, `inicio` (ms), `jugador1`, `jugador2`, `nombre1`, `nombre2`, `ganador` (uuid o null = empate), `casillas_jugador1`, `casillas_jugador2`, `finalizada_en`; único `(sala_codigo, inicio)`. La llena el trigger `registrar_historial` de `salas` (spec006)
 **Storage:** bucket público `avatars`, ruta `avatars/<id>/avatar.jpg`, máx. 2 MB.
 
 Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `objetivo`, `usados`, `tableros`, `marcadas`, `ganador`, `ronda` y tiempos.
@@ -163,6 +167,7 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 - RLS: cada jugador ve solo su perfil y las salas donde juega.
 - Del perfil solo se puede actualizar `nombre` y `foto_url`; las estadísticas solo las cambian `terminar_partida` y `reclamar_abandono`.
 - Las salas no se insertan ni modifican directamente: solo por funciones `security definer` con `set search_path = ''`.
+- `historial_partidas` es de solo lectura: la política `select` deja ver solo las filas donde el jugador es `jugador1` o `jugador2`, y se revocan `insert`, `update` y `delete` a `anon` y `authenticated`. Solo inserta el trigger `registrar_historial` (`security definer`, `search_path = ''`), que nunca bloquea el fin de partida: si falla, lanza un `warning` y la sala termina igual.
 - Concurrencia: `select … for update` y `pg_advisory_xact_lock` en partida rápida; `terminar_partida` no suma dos veces.
 - Claves: `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (públicas por diseño; protege RLS). Viven en `.env.local` y en Vercel; nunca en el repositorio.
 
@@ -185,6 +190,7 @@ Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → P
 
 ## 13. Pruebas y calidad
 - **Vitest:** simulación de partidas con dos jugadores falsos y Supabase simulado (sincronización, turno de 15 s, abandono, partida rápida).
+- **Vitest · historial:** `app/lib/historial.test.ts`, 5 casos con Supabase simulado (victoria como jugador 1, derrota como jugador 2, empate, sin sesión, error de Supabase). Se corre con `npm test` (`vitest run`).
 - **Postgres local:** pruebas de todas las funciones SQL.
 - **Playwright:** capturas en 7 tamaños; 112 de 112 sin scroll.
 - **Manual:** dos navegadores (normal e incógnito) con cuentas distintas.
@@ -197,7 +203,8 @@ Ver `docs/infraestructura/despliegue.md`.
 | Documento | Contenido |
 |---|---|
 | `docs/producto.md` | Problema, usuario, objetivo del MVP |
-| `docs/specs/spec001…005` | Funcionalidades con criterios de aceptación |
+| `docs/specs/spec001…006` | Funcionalidades con criterios de aceptación |
+| `supabase/historial-partidas.sql` (repositorio del juego) | Tabla, RLS y trigger del historial (spec006) |
 | `docs/infraestructura/arquitectura.md` | Rutas, carpetas, funciones SQL, Realtime |
 | `docs/infraestructura/despliegue.md` | Vercel, Supabase y variables |
 | `docs/diseno/` | Identidad, logo y referencias |
@@ -216,3 +223,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | 1.3 | 2026-11-14 | Se quitan las referencias y la propuesta de modo oscuro: la app es solo de tema claro |
 | 1.4 | 2026-11-14 | Fuente actual como oficial: Arial + Geist Mono + letra del logo en el header (decisión 16). Riesgo 5: el header aún usa el logo X cian. Referencias completas: 15 pantallas en móvil y escritorio y 2 mapas (36 imágenes), con el script `scripts/capturas-referencia.ts` |
 | 1.5 | 2026-11-14 | Logo Opción A aplicado: ícono de la pestaña y apple-icon con el ícono completo (cuadro azul con nube "64"), header con `logo-header-duelo64.png` sobre `#F5F8FF`; se copian ambos PNG a `docs/diseno/marca/`. Riesgo 5 resuelto. El logotipo pasa a "Duelo 64" con la letra de la Opción A |
+| 1.6 | 2026-11-14 | Historial de partidas dentro del perfil (spec006, RF-25, decisiones 19 y 20). Se agregan: tabla `historial_partidas` con RLS de solo lectura, trigger `registrar_historial` en `salas` (no bloquea el fin de partida), pruebas `historial.test.ts` con Vitest y color de victoria `#8A6100`. Sin ruta nueva ni botón en el menú |
