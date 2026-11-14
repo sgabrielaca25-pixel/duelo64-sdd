@@ -26,7 +26,7 @@ Reglas:
 ### Estado en la app
 - El header de menú, perfil y sala usa el logo Opción A (`logo-header-duelo64.png`) y la pestaña y el apple-icon usan `icono-duelo64.png` (SDD v1.5, rama `logo-opcion-a` del juego).
 - El header de partida no cambia: sigue con un círculo "64" y "DUELO 64" en Arial negrita.
-- Las capturas de `docs/diseno/referencias/` todavía muestran el header anterior (X cian) hasta que se regeneren con `scripts/capturas-referencia.ts`.
+- Las capturas de `docs/diseno/referencias/` ya muestran este header (regeneradas en el SDD v1.7).
 
 ## Tono de voz
 Directo, competitivo y amigable. Frases cortas. Tutea al jugador.
@@ -102,9 +102,9 @@ La tipografía oficial es **la que se ve hoy en la app** (decisión 16):
 Variantes propias en `globals.css`: `bajo` (alto ≤ 520 px) y `medio` (alto ≤ 800 px y ancho ≤ 1023 px).
 
 ## Referencias
-Las 36 imágenes de `docs/diseno/referencias/` muestran cómo debe verse cada pantalla, en móvil (390×844) y escritorio (1366×768) (explicación completa en su `README.md`):
+Las 38 imágenes de `docs/diseno/referencias/` muestran cómo debe verse cada pantalla, en móvil (390×844) y escritorio (1366×768) (explicación completa en su `README.md`):
 - `00-mapa-de-pantallas.png` (móvil) y `00-mapa-de-pantallas-escritorio.png`: todas las pantallas en una sola imagen.
-- `01` a `15`: login, login con error, registro, menú, perfil, sala privada, partida rápida, fases de la partida, desconexión, abandono, resultados y recuperar contraseña (3 pasos).
+- `01` a `15`: login, login con error, registro, menú, perfil (con historial y vacío), sala privada, partida rápida, fases de la partida, desconexión, abandono, resultados y recuperar contraseña (3 pasos).
 - Se regeneran con `scripts/capturas-referencia.ts`.
 
 Antes de terminar una tarea de UI, compara la pantalla con su referencia.

@@ -4,10 +4,21 @@ import Header from "@/app/ui/header";
 import JugarMenu from "@/app/ui/jugar-menu";
 import NuevaContrasenaForm from "@/app/ui/nueva-contrasena-form";
 import PerfilJugador from "@/app/ui/perfil-jugador";
+import type { PartidaHistorial } from "@/app/lib/historial";
 import Escenas from "./escenas";
 
 const tarjeta =
   "w-full rounded-[2rem] bg-[#FDFEFF] p-6 shadow-xl sm:rounded-[3rem] sm:p-10 lg:min-h-[55vh] medio:p-5 bajo:rounded-[2rem] bajo:p-4";
+
+// Historial de ejemplo de David (spec006): ya viene con "Tú" primero.
+const historialDemo: PartidaHistorial[] = [
+  { id: 8, fecha: "14 nov 2026", rival: "Camila", resultado: "victoria", misCasillas: 64, casillasRival: 41 },
+  { id: 7, fecha: "14 nov 2026", rival: "Camila", resultado: "derrota", misCasillas: 37, casillasRival: 64 },
+  { id: 6, fecha: "13 nov 2026", rival: "Andrés", resultado: "empate", misCasillas: 32, casillasRival: 32 },
+  { id: 5, fecha: "12 nov 2026", rival: "Valentina", resultado: "victoria", misCasillas: 64, casillasRival: 28 },
+  { id: 4, fecha: "11 nov 2026", rival: "Mateo", resultado: "victoria", misCasillas: 45, casillasRival: 19 },
+  { id: 3, fecha: "10 nov 2026", rival: "Camila", resultado: "derrota", misCasillas: 22, casillasRival: 64 },
+];
 
 // Copia de app/jugar/layout.tsx con David como jugador.
 function LayoutJugar({ children }: { children: React.ReactNode }) {
@@ -45,11 +56,15 @@ export default async function Referencia({ params }: { params: Promise<{ pantall
     );
   }
 
-  if (pantalla === "perfil") {
+  if (pantalla === "perfil" || pantalla === "perfil-vacio") {
+    const vacio = pantalla === "perfil-vacio";
     return (
       <LayoutJugar>
         <div className={tarjeta}>
-          <PerfilJugador perfil={{ id: "demo", nombre: "David", jugadas: 24, ganadas: 15, perdidas: 8, foto: null }} />
+          <PerfilJugador
+            perfil={{ id: "demo", nombre: "David", jugadas: vacio ? 0 : 24, ganadas: vacio ? 0 : 15, perdidas: vacio ? 0 : 8, foto: null }}
+            historial={vacio ? [] : historialDemo}
+          />
         </div>
       </LayoutJugar>
     );

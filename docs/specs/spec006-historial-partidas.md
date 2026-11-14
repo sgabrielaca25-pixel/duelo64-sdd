@@ -16,46 +16,44 @@ Como jugador, quiero ver en mi perfil mis últimas partidas, contra quién jugu�
 6. No hay botón "Historial" en el menú ni una página aparte: todo vive en el perfil.
 
 ## Criterios de aceptación
-- [ ] La sección "Historial de partidas" aparece en `/jugar/perfil` debajo de las estadísticas.
-- [ ] El menú `/jugar` no tiene un botón "Historial".
-- [ ] Se muestran como máximo 20 partidas, la más reciente primero.
-- [ ] Cada partida muestra fecha, resultado, nombre del rival y casillas de cada jugador.
-- [ ] Si el jugador fue el ganador, dice "Victoria"; si ganó el rival, "Derrota"; si no hubo ganador, "Empate".
-- [ ] El marcador muestra primero mis casillas ("Tú") y después las del rival, sin importar si fui jugador 1 o 2.
-- [ ] Sin partidas, se ve el mensaje "Todavía no tienes partidas en tu historial".
-- [ ] Un jugador solo ve sus propias partidas (RLS).
-- [ ] Con 20 partidas, a 390 px la página del perfil se puede usar y la lista se desplaza dentro de su sección.
-- [ ] Al terminar una partida (por 64 casillas, números agotados, abandono o desconexión), aparece en el historial de los dos jugadores.
+- [x] La sección "Historial de partidas" aparece en `/jugar/perfil` debajo de las estadísticas.
+- [x] El menú `/jugar` no tiene un botón "Historial".
+- [x] Se muestran como máximo 20 partidas, la más reciente primero.
+- [x] Cada partida muestra fecha, resultado, nombre del rival y casillas de cada jugador.
+- [x] Si el jugador fue el ganador, dice "Victoria"; si ganó el rival, "Derrota"; si no hubo ganador, "Empate".
+- [x] El marcador muestra primero mis casillas ("Tú") y después las del rival, sin importar si fui jugador 1 o 2.
+- [x] Sin partidas, se ve el mensaje "Todavía no tienes partidas en tu historial".
+- [x] Un jugador solo ve sus propias partidas (RLS).
+- [x] Con 20 partidas, a 390 px la página del perfil se puede usar y la lista se desplaza dentro de su sección.
+- [x] Al terminar una partida (por 64 casillas, números agotados, abandono o desconexión), aparece en el historial de los dos jugadores.
 
 ## Datos
-Tabla `historial_partidas` en Supabase:
+Tabla `historial_partidas` en Supabase (ya existía antes de esta spec, con filas y su política RLS):
 
 | Columna | Tipo | Descripción |
 |---|---|---|
 | `id` | bigint (PK) | Identificador |
-| `sala_codigo` | text | Código de la sala donde se jugó |
-| `inicio` | bigint | Momento de inicio de la partida (ms, `partida.inicio`) |
+| `sala_id` | uuid, not null | Sala donde se jugó (`salas.id`) |
+| `codigo` | text, not null | Código de la sala |
 | `jugador1`, `jugador2` | uuid | Jugadores de la partida |
 | `nombre1`, `nombre2` | text | Nombres al momento de jugar |
 | `ganador` | uuid o null | null = empate |
 | `casillas_jugador1`, `casillas_jugador2` | integer | Casillas marcadas por cada uno |
-| `finalizada_en` | timestamptz | Cuándo terminó |
+| `finalizada_en` | timestamptz, default `now()` | Cuándo terminó |
 
-Único: `(sala_codigo, inicio)`. Una revancha en la misma sala tiene otro `inicio`, así que cuenta como otra partida.
+- La fila la insertan las funciones SQL **`terminar_partida`** y **`reclamar_abandono`**, una por partida (incluida cada revancha). No hay trigger: se descartó para no duplicar filas (decisión 20).
+- RLS: un jugador solo puede leer las filas donde es `jugador1` o `jugador2`. Nadie inserta ni modifica desde el navegador.
+- El front solo lee: `obtenerHistorial()` filtra por el jugador, ordena por `finalizada_en` descendente y trae 20 filas.
 
-- RLS: un jugador solo puede leer filas donde `auth.uid()` sea `jugador1` o `jugador2`. Nadie inserta ni modifica desde el navegador.
-- La fila la crea un **trigger en `salas`** (`registrar_historial`) cuando `salas.estado` pasa de `jugando` a `terminada`, una sola vez por partida (`on conflict do nothing`). Toma el ganador (0, 1 o null) y las casillas (`marcadas`) de `salas.partida`. Cubre los cuatro finales: 64 casillas, números agotados (con empate), rendición y abandono.
-- **El trigger nunca bloquea el fin de partida:** la inserción está envuelta en `begin … exception when others then raise warning … end` y la función siempre devuelve `NEW`.
-  Si el historial falla, solo queda un aviso en el log de Postgres; la sala termina igual y las estadísticas se suman como siempre.
-- SQL: `supabase/historial-partidas.sql` en el repositorio del juego. Se revisa y se ejecuta a mano en el SQL Editor de Supabase.
+> **Nota:** las partidas jugadas antes de crear la tabla no aparecen en el historial, aunque sí cuentan en las estadísticas del perfil (`jugadas`, `ganadas`, `perdidas`).
 
 ## Diseño
 - Tarjetas `#EEF4FF`, redondeadas (`1.5rem`), dentro de la tarjeta del perfil.
 - Colores del resultado: Victoria `#8A6100` (dorado, contraste 5.0:1), Derrota `#B3261E`, Empate `#0061A2`. Todos pasan AA sobre `#EEF4FF`.
-- Referencia: `docs/diseno/referencias/05-perfil-movil.png` y `05-perfil-escritorio.png` (se regeneran con el historial).
+- Referencia: `docs/diseno/referencias/05-perfil-movil.png` y `05-perfil-escritorio.png` (con varias partidas) y `05-perfil-vacio-movil.png` / `05-perfil-vacio-escritorio.png` (sin partidas).
 
 ## Archivos
-`app/lib/historial.ts` (`obtenerHistorial()`), `app/lib/historial.test.ts`, `app/ui/historial-partidas.tsx`, `app/jugar/perfil/page.tsx`, `app/ui/perfil-jugador.tsx`, `vitest.config.ts`; tabla, política y trigger en `supabase/historial-partidas.sql`.
+`app/lib/historial.ts` (`obtenerHistorial()`), `app/lib/historial.test.ts`, `app/ui/historial-partidas.tsx`, `app/jugar/perfil/page.tsx`, `app/ui/perfil-jugador.tsx`, `vitest.config.ts`. No hay SQL en el repositorio del juego: la tabla y la inserción ya viven en Supabase.
 
 ## Pruebas
 `app/lib/historial.test.ts` (Vitest, 5 casos con Supabase simulado): victoria como jugador 1, derrota como jugador 2, empate con ganador null, lista vacía sin sesión y error cuando Supabase falla.

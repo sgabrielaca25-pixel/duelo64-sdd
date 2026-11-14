@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.6
+**Versión:** 1.7
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -111,7 +111,7 @@ Estadísticas: se actualizan una sola vez; el empate solo suma a "jugadas". Reva
 | RF-24 | Aplicación publicada en internet | — |
 | RF-25 | Ver en el perfil las últimas 20 partidas | 006 |
 
-Estado: RF-01 a RF-24 están implementados y publicados. RF-25 está en desarrollo (rama `historial-en-perfil`).
+Estado: RF-01 a RF-25 están implementados y publicados. RF-25 se publicó con el PR #3 (`historial-en-perfil`) el 2026-11-14.
 
 ## 7. Requerimientos no funcionales
 | Código | Atributo | Requisito |
@@ -154,11 +154,11 @@ Eventos del canal `partida-CÓDIGO`: `jugada`, `estado`, `pedir-estado`, `revanc
 auth.users 1 ── 1 perfiles
 auth.users 1 ── N salas (como jugador1 o jugador2)
 salas      1 ── 1 partida (jsonb dentro de salas)
-salas      1 ── N historial_partidas (una fila por partida terminada, incluida cada revancha)
+salas      1 ── N historial_partidas (por sala_id; una fila por partida terminada, incluida cada revancha)
 ```
 **perfiles:** `id` (uuid, FK auth.users), `nombre` (3–15), `jugadas`, `ganadas`, `perdidas`, `foto_url`, `creado_en`
 **salas:** `id`, `codigo` (6 caracteres, sin O/0 ni I/1), `estado` (esperando · jugando · terminada), `jugador1`, `jugador2`, `nombre1`, `nombre2`, `foto1`, `foto2`, `partida` (jsonb), `publica`, `activa_en`, `visto1`, `visto2`, `creada_en`
-**historial_partidas:** `id`, `sala_codigo`, `inicio` (ms), `jugador1`, `jugador2`, `nombre1`, `nombre2`, `ganador` (uuid o null = empate), `casillas_jugador1`, `casillas_jugador2`, `finalizada_en`; único `(sala_codigo, inicio)`. La llena el trigger `registrar_historial` de `salas` (spec006)
+**historial_partidas:** `id` (bigint), `sala_id` (uuid, not null), `codigo` (text, not null), `jugador1`, `jugador2` (uuid), `nombre1`, `nombre2` (text), `ganador` (uuid o null = empate), `casillas_jugador1`, `casillas_jugador2` (int), `finalizada_en` (timestamptz, default `now()`). La llenan `terminar_partida` y `reclamar_abandono`, una fila por partida; no hay trigger (spec006, decisión 20). Las partidas jugadas antes de crear la tabla no aparecen en el historial, aunque sí cuentan en las estadísticas
 **Storage:** bucket público `avatars`, ruta `avatars/<id>/avatar.jpg`, máx. 2 MB.
 
 Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `objetivo`, `usados`, `tableros`, `marcadas`, `ganador`, `ronda` y tiempos.
@@ -167,7 +167,7 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 - RLS: cada jugador ve solo su perfil y las salas donde juega.
 - Del perfil solo se puede actualizar `nombre` y `foto_url`; las estadísticas solo las cambian `terminar_partida` y `reclamar_abandono`.
 - Las salas no se insertan ni modifican directamente: solo por funciones `security definer` con `set search_path = ''`.
-- `historial_partidas` es de solo lectura: la política `select` deja ver solo las filas donde el jugador es `jugador1` o `jugador2`, y se revocan `insert`, `update` y `delete` a `anon` y `authenticated`. Solo inserta el trigger `registrar_historial` (`security definer`, `search_path = ''`), que nunca bloquea el fin de partida: si falla, lanza un `warning` y la sala termina igual.
+- `historial_partidas` es de solo lectura desde el navegador: su política RLS deja ver solo las filas donde el jugador es `jugador1` o `jugador2`. Solo insertan las funciones `terminar_partida` y `reclamar_abandono`, que ya validan la partida en la BD.
 - Concurrencia: `select … for update` y `pg_advisory_xact_lock` en partida rápida; `terminar_partida` no suma dos veces.
 - Claves: `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (públicas por diseño; protege RLS). Viven en `.env.local` y en Vercel; nunca en el repositorio.
 
@@ -175,7 +175,7 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 - Identidad visual completa: `docs/diseno/identidad-visual.md`
 - Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`. El header usa `logo-header-duelo64.png` y la pestaña y el apple-icon usan el ícono completo `icono-duelo64.png` (ver `docs/diseno/identidad-visual.md`)
 - Tipografía (decisión 16): Arial en textos, Geist Mono en números y códigos, logotipo del header como imagen
-- Pantallas de referencia: `docs/diseno/referencias/`, 36 imágenes en móvil y escritorio (empezar por `00-mapa-de-pantallas.png`); se regeneran con `scripts/capturas-referencia.ts`
+- Pantallas de referencia: `docs/diseno/referencias/`, 38 imágenes en móvil y escritorio (empezar por `00-mapa-de-pantallas.png`); se regeneran con `scripts/capturas-referencia.ts`
 
 Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → Partida → Resultado → Revancha o Menú. Perfil desde el header.
 
@@ -186,7 +186,7 @@ Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → P
 | 2 | Tipografía | La oficial es la actual (decisión 16): Arial en textos (`globals.css`), Geist Mono en números (`font-mono`, cargada en `layout.tsx`) y el logotipo del header como imagen (logo Opción A). `layout.tsx` también carga Geist Sans, que solo usa el placeholder del campo "Código de sala" | Quitar la carga de Geist Sans en `layout.tsx` (mantener Geist Mono). Pendiente en tareas.md |
 | 3 | Autoridad en el cliente | El árbitro es el navegador del jugador 1; un cliente modificado del creador podría alterar el estado | Mover la validación a una función del servidor (Edge Function) en una versión futura |
 | 4 | Dependencia del árbitro | Si el árbitro se desconecta, la partida depende del mecanismo de abandono | Aceptado para el MVP |
-| 5 | Logo del header | ✓ Resuelto en v1.5: el header usa `logo-header-duelo64.png` (Opción A) y la pestaña y el apple-icon usan `icono-duelo64.png` | Regenerar las capturas de `docs/diseno/referencias/`, que aún muestran la X cian |
+| 5 | Logo del header | ✓ Resuelto en v1.5: el header usa `logo-header-duelo64.png` (Opción A) y la pestaña y el apple-icon usan `icono-duelo64.png` | ✓ Capturas regeneradas en v1.7 con el logo nuevo |
 
 ## 13. Pruebas y calidad
 - **Vitest:** simulación de partidas con dos jugadores falsos y Supabase simulado (sincronización, turno de 15 s, abandono, partida rápida).
@@ -204,7 +204,6 @@ Ver `docs/infraestructura/despliegue.md`.
 |---|---|
 | `docs/producto.md` | Problema, usuario, objetivo del MVP |
 | `docs/specs/spec001…006` | Funcionalidades con criterios de aceptación |
-| `supabase/historial-partidas.sql` (repositorio del juego) | Tabla, RLS y trigger del historial (spec006) |
 | `docs/infraestructura/arquitectura.md` | Rutas, carpetas, funciones SQL, Realtime |
 | `docs/infraestructura/despliegue.md` | Vercel, Supabase y variables |
 | `docs/diseno/` | Identidad, logo y referencias |
@@ -224,3 +223,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | 1.4 | 2026-11-14 | Fuente actual como oficial: Arial + Geist Mono + letra del logo en el header (decisión 16). Riesgo 5: el header aún usa el logo X cian. Referencias completas: 15 pantallas en móvil y escritorio y 2 mapas (36 imágenes), con el script `scripts/capturas-referencia.ts` |
 | 1.5 | 2026-11-14 | Logo Opción A aplicado: ícono de la pestaña y apple-icon con el ícono completo (cuadro azul con nube "64"), header con `logo-header-duelo64.png` sobre `#F5F8FF`; se copian ambos PNG a `docs/diseno/marca/`. Riesgo 5 resuelto. El logotipo pasa a "Duelo 64" con la letra de la Opción A |
 | 1.6 | 2026-11-14 | Historial de partidas dentro del perfil (spec006, RF-25, decisiones 19 y 20). Se agregan: tabla `historial_partidas` con RLS de solo lectura, trigger `registrar_historial` en `salas` (no bloquea el fin de partida), pruebas `historial.test.ts` con Vitest y color de victoria `#8A6100`. Sin ruta nueva ni botón en el menú |
+| 1.7 | 2026-11-14 | RF-25 publicado (PR #3; logo en PR #2). `historial_partidas` documentada con sus columnas reales (`sala_id`, `codigo`, …): ya existía y la llenan `terminar_partida` y `reclamar_abandono`; se descarta el trigger y se borra `supabase/historial-partidas.sql` (decisión 20 actualizada). Referencias regeneradas desde `master` con el logo nuevo y el historial (38 imágenes, incluido el perfil vacío). Evidencias y bitácora completas |

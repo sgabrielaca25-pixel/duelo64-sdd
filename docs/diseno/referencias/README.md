@@ -1,13 +1,13 @@
 # Referencias visuales · Duelo 64
 
-Estas imágenes muestran **cómo debe verse cada pantalla** de Duelo 64. Se generaron a partir del código actual (`app/ui/`), con sus colores, textos y estados reales.
+Estas imágenes muestran **cómo debe verse cada pantalla** de Duelo 64. Se regeneraron el 2026-11-14 desde `master` (con el logo Opción A del PR #2 y el historial del PR #3) a partir del código actual (`app/ui/`), con sus colores, textos y estados reales.
 
 Si construyes o cambias una pantalla, compárala con su imagen antes de terminar la tarea. Si el diseño cambia a propósito, regenera la imagen y anota la decisión.
 
 Datos de ejemplo: el jugador es **David** (azul) y el rival es **Camila** (rojo).
 
 ## Pantallas
-36 imágenes: 17 capturas en **móvil (390×844)** y 17 en **escritorio (1366×768)**, más un mapa de cada tamaño. Cada pantalla tiene dos archivos: `NN-nombre-movil.png` y `NN-nombre-escritorio.png`.
+38 imágenes: 18 capturas en **móvil (390×844)** y 18 en **escritorio (1366×768)**, más un mapa de cada tamaño. Cada pantalla tiene dos archivos: `NN-nombre-movil.png` y `NN-nombre-escritorio.png`.
 
 | # | Imagen (`-movil.png` / `-escritorio.png`) | Ruta | Qué muestra |
 |---|---|---|---|
@@ -15,8 +15,9 @@ Datos de ejemplo: el jugador es **David** (azul) y el rival es **Camila** (rojo)
 | 01 | `01-login` | `/login` | Formulario vacío |
 | 02 | `02-login-error` | `/login` | Error real de credenciales ("Datos no coinciden…") en píldora roja y el correo conservado |
 | 03 | `03-registro` | `/registro` | Nombre del jugador, correo y contraseña |
-| 04 | `04-menu-jugar` | `/jugar` | Header actual, saludo "¡Hola, David!", partida rápida, crear sala, unirse con código, acceso al perfil |
-| 05 | `05-perfil` | `/jugar/perfil` | Foto con botón de cámara, nombre editable, estadísticas (24 jugadas, 15 ganadas, 8 perdidas), cerrar sesión |
+| 04 | `04-menu-jugar` | `/jugar` | Header con el logo Opción A (nube "64" + "Duelo 64"), saludo "¡Hola, David!", partida rápida, crear sala, unirse con código, acceso al perfil |
+| 05 | `05-perfil` | `/jugar/perfil` | Foto con botón de cámara, nombre editable, estadísticas (24 jugadas, 15 ganadas, 8 perdidas) y **historial de partidas** con 6 partidas de ejemplo (victoria, derrota y empate; la lista se desplaza dentro de su sección), volver al menú y cerrar sesión (spec006) |
+| 05 | `05-perfil-vacio` | `/jugar/perfil` | Jugador nuevo: estadísticas en 0 e historial vacío con "Todavía no tienes partidas en tu historial" |
 | 06 | `06-sala-privada` | `/jugar/sala/[codigo]` | Código copiable en amarillo y puesto del rival vacío (borde punteado) |
 | 07 | `07-partida-rapida-buscando` | `/jugar/sala/[codigo]` | Partida rápida: "Buscando rival" y sin código |
 | 08 | `08-partida-eligiendo` | `/partida/[codigo]` | Fase **eligiendo**: David elige en la nube, cuenta de 15 s |
@@ -45,4 +46,3 @@ Con `scripts/capturas-referencia.ts` (Playwright, tema claro). Las pantallas sin
 ## Pendiente de diseño (se ve así en las imágenes)
 - El texto blanco sobre el botón `#3898EC` tiene un contraste de 3.1:1 y no pasa WCAG AA (4.5:1).
 - Tipografía: la oficial es la actual (decisión 16): Arial en textos y Geist Mono en números. Falta quitar la carga de Geist Sans en `layout.tsx`, que casi no se usa.
-- El header muestra el logo X cian descartado (decisión 17); falta cambiarlo por la nube Opción A (SDD §12, riesgo 5).
