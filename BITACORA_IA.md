@@ -2,17 +2,19 @@
 
 Registro de cómo usamos la IA (agente de código) en el proyecto: prompts clave, errores del agente o del código generado y cómo se corrigieron.
 
-> ✏️ Completa la columna "Prompt usado" con lo que realmente le pidieron al agente. Si no lo recuerdas exacto, escribe la idea con tus palabras.
-
 ## Prompts clave
 
 | Momento | Prompt usado | Resultado |
 |---|---|---|
 | Montar el SDD (U3) | "Con base en la documentación técnica del juego y las pantallas de referencia, arma el SDD de Duelo 64: documento maestro SDD.md, producto, specs con criterios de aceptación verificables, arquitectura, despliegue, identidad visual, decisiones, tareas, plantillas y la skill ui-componentes." | Repositorio `duelo64-sdd` con `docs/SDD.md` v1.0 y 5 specs |
-| Reglas del juego | ✏️ | `juego.ts` como lógica pura |
-| Multijugador | ✏️ | Modelo de árbitro con Broadcast y Presence |
-| Responsive sin scroll | ✏️ | Foco por pantalla, variantes `bajo` y `medio` |
-| Verificación | ✏️ | Playwright: 7 tamaños, 112/112 sin scroll |
+| Reglas del juego | "Escribe las reglas de Duelo 64 en `app/lib/juego.ts` como lógica pura, sin React, sin `Date.now()` ni `Math.random()`: la hora y la semilla entran por parámetro y cada jugada (elegir, marcar, encontrar, pasar, rendirse) devuelve un estado nuevo." (reconstruido) | `juego.ts` como lógica pura |
+| Multijugador | "Conecta la partida en línea con Supabase Realtime: que el jugador 1 sea el árbitro, el invitado le mande sus jugadas por Broadcast, y usa Presence y un latido cada 5 s para detectar si alguien abandona." (reconstruido) | Modelo de árbitro con Broadcast y Presence |
+| Responsive sin scroll | "La pantalla de partida no puede tener scroll en ningún dispositivo: en celular muestra solo el foco (la nube o el tablero propio) y crea variantes para pantallas bajas y medianas." (reconstruido) | Foco por pantalla, variantes `bajo` y `medio` |
+| Verificación | "Haz pruebas con Playwright que abran cada pantalla en 7 tamaños, de 375×667 a 1920×1080, y comprueben que ninguna tenga scroll." (reconstruido) | Playwright: 7 tamaños, 112/112 sin scroll |
+| Leer el SDD | "Lee @docs/SDD.md y resúmeme en 5 viñetas el sistema, sus reglas principales y los riesgos de la sección 12." | Resumen correcto del SDD |
+| Conectar GitHub | `gh auth login` | Sesión activa |
+| Conectar Vercel | `claude mcp add vercel` + `/mcp` | "Authentication successful" |
+| Completar la bitácora | Este mismo prompt | Bitácora completa |
 
 ## Errores encontrados y cómo se corrigieron
 
