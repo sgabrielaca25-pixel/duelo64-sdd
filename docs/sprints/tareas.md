@@ -44,6 +44,9 @@
 - [x] 4.1 Header con `public/logo-header-duelo64.png`, `app/icon.png` y `app/apple-icon.png` con el ícono completo — PR #2 `logo-opcion-a` unido y publicado
 - [x] 4.2 Regenerar todas las referencias desde `master` con el logo nuevo y el historial: 38 imágenes (SDD v1.7)
 
+## Títulos de pestaña (decisión 21, SDD v1.9)
+- [ ] 5.1 Plantilla "%s · Duelo 64" (default "Duelo 64") en `app/layout.tsx` y títulos cortos en cada página (rama `titulos-pestana`)
+
 ## Mejoras pendientes (propuestas, aún fuera del MVP)
 - [x] Quitar la carga de **Geist Sans** en `layout.tsx` (SDD v1.8, PR `quitar-geist-sans`): el placeholder de "Código de sala" (`placeholder:font-sans`) pasa a Arial con `--font-sans`. **Geist Mono sí se usa** (`font-mono`) y se queda
 - [ ] Ajustar textos blancos pequeños sobre `#3898EC` / `#E5536B` para cumplir AA (ver identidad-visual.md)

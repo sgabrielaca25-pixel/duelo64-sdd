@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.8
+**Versión:** 1.9
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -175,6 +175,7 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 - Identidad visual completa: `docs/diseno/identidad-visual.md`
 - Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`. El header usa `logo-header-duelo64.png` y la pestaña y el apple-icon usan el ícono completo `icono-duelo64.png` (ver `docs/diseno/identidad-visual.md`)
 - Tipografía (decisión 16): Arial en textos, Geist Mono en números y códigos, logotipo del header como imagen
+- Título de la pestaña (decisión 21): "<pantalla> · Duelo 64", o solo "Duelo 64" si la página no tiene título (lista en `docs/diseno/identidad-visual.md`)
 - Pantallas de referencia: `docs/diseno/referencias/`, 38 imágenes en móvil y escritorio (empezar por `00-mapa-de-pantallas.png`); se regeneran con `scripts/capturas-referencia.ts`
 
 Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → Partida → Resultado → Revancha o Menú. Perfil desde el header.
@@ -225,3 +226,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | 1.6 | 2026-11-14 | Historial de partidas dentro del perfil (spec006, RF-25, decisiones 19 y 20). Se agregan: tabla `historial_partidas` con RLS de solo lectura, trigger `registrar_historial` en `salas` (no bloquea el fin de partida), pruebas `historial.test.ts` con Vitest y color de victoria `#8A6100`. Sin ruta nueva ni botón en el menú |
 | 1.7 | 2026-11-14 | RF-25 publicado (PR #3; logo en PR #2). `historial_partidas` documentada con sus columnas reales (`sala_id`, `codigo`, …): ya existía y la llenan `terminar_partida` y `reclamar_abandono`; se descarta el trigger y se borra `supabase/historial-partidas.sql` (decisión 20 actualizada). Referencias regeneradas desde `master` con el logo nuevo y el historial (38 imágenes, incluido el perfil vacío). Evidencias y bitácora completas |
 | 1.8 | 2026-11-14 | Riesgo 2 resuelto: se quita la carga de Geist Sans en `layout.tsx`; `--font-sans` pasa a Arial en `globals.css`, así el placeholder de "Código de sala" queda en la fuente oficial de textos. Geist Mono se mantiene para los números (decisión 16 actualizada) |
+| 1.9 | 2026-11-14 | Títulos de pestaña "<pantalla> · Duelo 64" (decisión 21): plantilla en `app/layout.tsx` (default "Duelo 64") y títulos cortos por página: Iniciar sesión, Registro, Recuperar contraseña, Jugar, Mi perfil, Sala de espera, Partida en línea y Resultado |

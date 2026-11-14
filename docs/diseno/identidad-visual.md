@@ -23,6 +23,25 @@ Reglas:
 
 > El logo anterior (X entrelazada en cian) se descartó y queda archivado en `docs/diseno/marca/descartados/` (decisión 17).
 
+### Título de la pestaña
+Formato: **"<pantalla> · Duelo 64"** (punto medio con un espacio a cada lado). Si la página no tiene título, la pestaña dice solo **"Duelo 64"** (decisión 21).
+
+| Ruta | Título de la pestaña |
+|---|---|
+| `/login` | Iniciar sesión · Duelo 64 |
+| `/registro` | Registro · Duelo 64 |
+| `/recuperar-contrasena`, `/codigo` y `/nueva` | Recuperar contraseña · Duelo 64 |
+| `/jugar` | Jugar · Duelo 64 |
+| `/jugar/perfil` | Mi perfil · Duelo 64 |
+| `/jugar/sala/[codigo]` | Sala de espera · Duelo 64 |
+| `/partida/[codigo]` | Partida en línea · Duelo 64 |
+| `/jugar/resultado` | Resultado · Duelo 64 |
+| Cualquier otra (por ejemplo `/partida`, la prueba local) | Duelo 64 |
+
+Reglas:
+- La página pone solo su nombre corto, sin "Duelo 64": el nombre del juego lo agrega `app/layout.tsx` con `metadata.title = { template: "%s · Duelo 64", default: "Duelo 64" }`.
+- Solo se usan los títulos de esta lista; una pantalla nueva agrega aquí el suyo.
+
 ### Estado en la app
 - El header de menú, perfil y sala usa el logo Opción A (`logo-header-duelo64.png`) y la pestaña y el apple-icon usan `icono-duelo64.png` (SDD v1.5, rama `logo-opcion-a` del juego).
 - El header de partida no cambia: sigue con un círculo "64" y "DUELO 64" en Arial negrita.
