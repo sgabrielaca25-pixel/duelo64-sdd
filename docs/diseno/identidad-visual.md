@@ -12,13 +12,13 @@ Hoja completa: `docs/diseno/marca/logo-opcion-a.png`. Archivos que usa la app: `
 |---|---|
 | Ícono de la pestaña del navegador (`app/icon.png`) | Ícono completo `icono-duelo64.png`: cuadro redondeado azul `#3898EC` con la nube "64" azul y roja |
 | Apple-icon (`app/apple-icon.png`) | El mismo ícono completo `icono-duelo64.png` |
-| Header claro (`app/ui/header.tsx`) | Imagen `logo-header-duelo64.png` (en el juego, `public/logo-header-duelo64.png`): nube "64" + "Duelo 64", sobre fondo `#F5F8FF`. Alto de unos 36 px en celular y 44 px en escritorio. Tocarla lleva al menú (`/jugar`) |
+| Header claro (`app/ui/header.tsx`) | Imagen `logo-header-duelo64.png` (en el juego, `public/logo-header-duelo64.png`): nube "64" + "Duelo 64", PNG transparente a 2x (596×136) sobre fondo `#F5F8FF`; en el header la nube lleva borde azul `#3898EC` para verse sobre el fondo claro. Alto de unos 36 px en celular y 44 px en escritorio. Tocarla lleva al menú (`/jugar`) |
 | Una tinta | Negro sobre blanco, o calado en blanco sobre azul `#0061A2` |
 
 Reglas:
 - No cambiar los colores del 6 y el 4: siempre azul y rojo, en ese orden.
 - El ícono de la pestaña también usa el ícono completo con el "64" (no hay versión de solo la nube).
-- La imagen del header no tiene transparencia: va siempre sobre `#F5F8FF`.
+- La imagen del header es transparente; la nube lleva borde azul `#3898EC` para no perderse sobre el fondo claro del header (`#F5F8FF`).
 - El logotipo es imagen; los textos de la interfaz van en Arial y los números en Geist Mono (decisión 16).
 
 > El logo anterior (X entrelazada en cian) se descartó y queda archivado en `docs/diseno/marca/descartados/` (decisión 17).

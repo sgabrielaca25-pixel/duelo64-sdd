@@ -13,7 +13,7 @@ description: Crear o modificar componentes y pantallas de Duelo 64 respetando su
 3. Tipografía (la actual, decisión 16):
    - Textos en Arial (aplicada al `body` en `globals.css`). Títulos en negrita.
    - Números y códigos con `font-mono` = Geist Mono (cargada en `layout.tsx`), en negrita: nube, contadores, cronómetro, códigos.
-   - El logotipo del header es la imagen `public/logo-duelo64-horizontal.png` (no se escribe con una fuente). El header de partida usa "DUELO 64" en Arial negrita.
+   - El logotipo del header es la imagen `public/logo-header-duelo64.png` (no se escribe con una fuente). El header de partida usa "DUELO 64" en Arial negrita.
    - No agregues otras fuentes ni uses `font-sans` (Geist Sans se va a quitar).
 4. Componentes en `app/ui/`, uno por archivo, nombre en español en minúsculas con guiones (`barra-turno.tsx`), props tipadas con TypeScript.
 5. La UI no decide reglas: llama a funciones de `app/lib/juego.ts` o recibe el estado por props. Nada de `Math.random()` ni lógica de turnos en componentes.
