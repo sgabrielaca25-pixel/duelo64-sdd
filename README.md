@@ -16,13 +16,14 @@ duelo64-sdd/
 ├── CLAUDE.md                     reglas para el agente
 ├── BITACORA_IA.md                prompts, errores y correcciones
 ├── .claude/skills/ui-componentes/SKILL.md
+├── scripts/                      capturas-referencia.ts (Playwright)
 └── docs/
     ├── SDD.md                    documento maestro
     ├── producto.md               problema, usuario, alcance
     ├── decisiones.md             por qué se hizo cada cosa
     ├── specs/                    spec001 … spec005
     ├── infraestructura/          arquitectura y despliegue
-    ├── diseno/                   identidad, logo y 21 referencias
+    ├── diseno/                   identidad, logo y 36 referencias
     ├── sprints/tareas.md         tareas del front
     ├── templates/                plantillas de spec y decisión
     └── evidencias/               capturas del taller

@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.3
+**Versión:** 1.4
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -168,8 +168,9 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 
 ## 11. Diseño de interfaz
 - Identidad visual completa: `docs/diseno/identidad-visual.md`
-- Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`
-- Pantallas de referencia: `docs/diseno/referencias/` (empezar por `00-mapa-de-pantallas.png`)
+- Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`. El header publicado aún muestra la X cian descartada (ver §12, riesgo 5)
+- Tipografía (decisión 16): Arial en textos, Geist Mono en números y códigos, logotipo del header como imagen
+- Pantallas de referencia: `docs/diseno/referencias/`, 36 imágenes en móvil y escritorio (empezar por `00-mapa-de-pantallas.png`); se regeneran con `scripts/capturas-referencia.ts`
 
 Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → Partida → Resultado → Revancha o Menú. Perfil desde el header.
 
@@ -177,9 +178,10 @@ Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → P
 | # | Tema | Detalle | Acción propuesta |
 |---|---|---|---|
 | 1 | Contraste | Texto blanco sobre `#3898EC` = 3.1:1 (no pasa AA) | Oscurecer el botón o usar texto oscuro |
-| 2 | Tipografía | Arial es la oficial (decisión 16), pero `layout.tsx` aún carga Geist sin usarla | Quitar la carga de Geist |
+| 2 | Tipografía | La oficial es la actual (decisión 16): Arial en textos (`globals.css`), Geist Mono en números (`font-mono`, cargada en `layout.tsx`) y la letra del logo en el header (imagen). `layout.tsx` también carga Geist Sans, que solo usa el placeholder del campo "Código de sala" | Quitar la carga de Geist Sans en `layout.tsx` (mantener Geist Mono). Pendiente en tareas.md |
 | 3 | Autoridad en el cliente | El árbitro es el navegador del jugador 1; un cliente modificado del creador podría alterar el estado | Mover la validación a una función del servidor (Edge Function) en una versión futura |
 | 4 | Dependencia del árbitro | Si el árbitro se desconecta, la partida depende del mecanismo de abandono | Aceptado para el MVP |
+| 5 | Logo del header | El header (`header.tsx`, commit `bdc6357`) muestra la X cian descartada en la decisión 17, no la nube Opción A | Cambiar el símbolo y los colores a la Opción A, manteniendo la letra actual. Pendiente en tareas.md |
 
 ## 13. Pruebas y calidad
 - **Vitest:** simulación de partidas con dos jugadores falsos y Supabase simulado (sincronización, turno de 15 s, abandono, partida rápida).
@@ -202,6 +204,7 @@ Ver `docs/infraestructura/despliegue.md`.
 | `docs/decisiones.md` | Por qué se hizo cada cosa |
 | `docs/sprints/tareas.md` | Tareas del front y pendientes |
 | `docs/templates/` | Plantillas para nuevas specs y decisiones |
+| `scripts/capturas-referencia.ts` | Regenera las capturas de referencia con Playwright (con la ruta temporal de `scripts/referencia-tmp/`) |
 | `BITACORA_IA.md` | Uso de IA, errores y correcciones |
 
 ## 16. Historial de versiones
@@ -211,3 +214,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | 1.1 | 2026-11-14 | Regla de color (jugador 1 azul, jugador 2 rojo), Arial como fuente oficial y pantalla de referencia (decisiones 14 y 16) |
 | 1.2 | 2026-11-14 | Logo oficial Opción A (decisión 17), nueva URL https://juegoduelo64.vercel.app y repositorio en la cuenta sgabrielaca25-pixel (decisión 18) |
 | 1.3 | 2026-11-14 | Se quitan las referencias y la propuesta de modo oscuro: la app es solo de tema claro |
+| 1.4 | 2026-11-14 | Fuente actual como oficial: Arial + Geist Mono + letra del logo en el header (decisión 16). Riesgo 5: el header aún usa el logo X cian. Referencias completas: 15 pantallas en móvil y escritorio y 2 mapas (36 imágenes), con el script `scripts/capturas-referencia.ts` |

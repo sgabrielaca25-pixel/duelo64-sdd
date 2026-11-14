@@ -18,10 +18,15 @@ Archivo: `docs/diseno/marca/logo-opcion-a.png`. La app es solo de tema claro: de
 Reglas:
 - No cambiar los colores del 6 y el 4: siempre azul y rojo, en ese orden.
 - Por debajo de 32 px se usa solo la nube.
-- El logotipo es imagen; los textos de la interfaz siguen en Arial (decisión 16).
+- El logotipo es imagen; los textos de la interfaz van en Arial y los números en Geist Mono (decisión 16).
 
 > El logo anterior (X entrelazada en cian) se descartó y queda archivado en `docs/diseno/marca/descartados/` (decisión 17).
-> Las imágenes de `docs/diseno/referencias/` muestran el header anterior (icono de nube + "DUELO 64"); la estructura y los colores siguen vigentes.
+
+### ⚠ Pendiente: el header de la app aún usa el logo descartado
+Hoy (commit `bdc6357` del juego, "Header con la misma letra del logo") el header de menú, perfil y sala muestra la imagen `public/logo-duelo64-horizontal.png`: **X cian + "DUELO" oscuro + "64" cian**, recortada del logo X original. El header de partida muestra un círculo "64" y "DUELO 64" en Arial negrita.
+- La **letra** del logotipo actual se mantiene (decisión 16, ver Tipografía).
+- El **símbolo y los colores** (X cian) no cumplen la decisión 17: falta cambiarlos por la nube Opción A (tarea pendiente en `docs/sprints/tareas.md`, riesgo 5 del SDD §12).
+- Las referencias de `docs/diseno/referencias/` muestran el header tal como está hoy (con la X cian).
 
 ## Tono de voz
 Directo, competitivo y amigable. Frases cortas. Tutea al jugador.
@@ -61,9 +66,18 @@ Ejemplos reales de la interfaz:
 **Regla:** texto blanco pequeño va sobre los tonos oscuros (`#0061A2`, `#B3261E`). Sobre los tonos claros (`#3898EC`, `#E5536B`) solo números grandes en negrita, como los de la nube.
 
 ## Tipografía
-- Fuente oficial: **Arial** (aplicada al `body` en `globals.css`). Títulos en negrita, texto en regular (decisión 16).
-- `layout.tsx` todavía carga Geist con `next/font` sin usarla: se puede quitar (ver SDD §12).
-- Los números de la nube van en **monoespaciada negrita**, con 3 tamaños y un pequeño desorden fijo.
+La tipografía oficial es **la que se ve hoy en la app** (decisión 16):
+
+| Uso | Fuente | Dónde se define |
+|---|---|---|
+| Todos los textos (títulos en negrita, texto en regular) | **Arial**, con respaldo Helvetica y sans-serif | `body` en `app/globals.css` |
+| Números y códigos (`font-mono`): nube, contadores X/64, cronómetro, cuenta de 15 s, número objetivo, código de sala, código de 6 dígitos | **Geist Mono**, en negrita | `next/font/google` en `app/layout.tsx` → `--font-geist-mono` → `--font-mono` en `globals.css` |
+| Logotipo del header de menú, perfil y sala | **Imagen** (`public/logo-duelo64-horizontal.png`): "DUELO" y "64" en mayúsculas, sans geométrica de trazo uniforme y letras espaciadas, recortadas del logo original. No es una fuente instalada | `app/ui/header.tsx` |
+| "DUELO 64" del header de partida | Arial negrita | `app/ui/header-partida.tsx` |
+
+- Los números de la nube van en Geist Mono negrita, con 3 tamaños y un pequeño desorden fijo.
+- `layout.tsx` también carga **Geist Sans**, pero casi no se usa (solo el placeholder del campo "Código de sala", `placeholder:font-sans`). Quitarla es una mejora pendiente (SDD §12, riesgo 2); hasta entonces ese placeholder se ve en Geist Sans.
+- No agregues otras fuentes.
 
 ## Estilo de componentes
 - Tarjetas blancas con bordes muy redondeados (`rounded-[3rem]`) y sombra grande.
@@ -85,8 +99,9 @@ Ejemplos reales de la interfaz:
 Variantes propias en `globals.css`: `bajo` (alto ≤ 520 px) y `medio` (alto ≤ 800 px y ancho ≤ 1023 px).
 
 ## Referencias
-Las 21 imágenes de `docs/diseno/referencias/` muestran cómo debe verse cada pantalla (explicación completa en su `README.md`):
-- `00-mapa-de-pantallas.png`: recorrido completo en celular.
-- `01` a `14`: login, registro, menú, perfil, sala privada, partida rápida, fases de la partida, desconexión, abandono y resultados.
+Las 36 imágenes de `docs/diseno/referencias/` muestran cómo debe verse cada pantalla, en móvil (390×844) y escritorio (1366×768) (explicación completa en su `README.md`):
+- `00-mapa-de-pantallas.png` (móvil) y `00-mapa-de-pantallas-escritorio.png`: todas las pantallas en una sola imagen.
+- `01` a `15`: login, login con error, registro, menú, perfil, sala privada, partida rápida, fases de la partida, desconexión, abandono, resultados y recuperar contraseña (3 pasos).
+- Se regeneran con `scripts/capturas-referencia.ts`.
 
 Antes de terminar una tarea de UI, compara la pantalla con su referencia.

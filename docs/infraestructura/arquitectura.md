@@ -17,7 +17,8 @@ El stack de referencia del diplomado es Next.js + Spring Boot + MySQL + AWS. La 
 Ver docs/decisiones.md.
 
 ## Front
-- Next.js 16, App Router, TypeScript, Tailwind CSS 4, fuente Arial (en `globals.css`).
+- Next.js 16, App Router, TypeScript, Tailwind CSS 4.
+- Fuentes: Arial para textos (`body` en `globals.css`) y Geist Mono para números y códigos (`next/font/google` en `layout.tsx`, clase `font-mono`). El logotipo del header es una imagen (`public/logo-duelo64-horizontal.png`). `layout.tsx` también carga Geist Sans, casi sin uso (mejora pendiente).
 - Server Components leen datos de Supabase con la sesión; Client Components (`"use client"`) manejan clics, temporizadores, sonidos y canales.
 - Server Actions (`app/lib/acciones-*.ts`) + `useActionState` para formularios sin escribir `fetch`.
 - `proxy.ts` (antes `middleware`): renueva la sesión y protege `/jugar` y `/partida`.
