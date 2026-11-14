@@ -45,5 +45,5 @@
 - [x] 4.2 Regenerar todas las referencias desde `master` con el logo nuevo y el historial: 38 imágenes (SDD v1.7)
 
 ## Mejoras pendientes (propuestas, aún fuera del MVP)
-- [ ] Quitar la carga de **Geist Sans** en `layout.tsx`: solo la usa el placeholder del campo "Código de sala" (`placeholder:font-sans`). **Geist Mono sí se usa** (`font-mono`) y se queda
+- [x] Quitar la carga de **Geist Sans** en `layout.tsx` (SDD v1.8, PR `quitar-geist-sans`): el placeholder de "Código de sala" (`placeholder:font-sans`) pasa a Arial con `--font-sans`. **Geist Mono sí se usa** (`font-mono`) y se queda
 - [ ] Ajustar textos blancos pequeños sobre `#3898EC` / `#E5536B` para cumplir AA (ver identidad-visual.md)

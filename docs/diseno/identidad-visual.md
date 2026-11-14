@@ -73,13 +73,13 @@ La tipografía oficial es **la que se ve hoy en la app** (decisión 16):
 
 | Uso | Fuente | Dónde se define |
 |---|---|---|
-| Todos los textos (títulos en negrita, texto en regular) | **Arial**, con respaldo Helvetica y sans-serif | `body` en `app/globals.css` |
+| Todos los textos (títulos en negrita, texto en regular) | **Arial**, con respaldo Helvetica y sans-serif | `body` en `app/globals.css` (y `--font-sans`, para la clase `font-sans`) |
 | Números y códigos (`font-mono`): nube, contadores X/64, cronómetro, cuenta de 15 s, número objetivo, código de sala, código de 6 dígitos | **Geist Mono**, en negrita | `next/font/google` en `app/layout.tsx` → `--font-geist-mono` → `--font-mono` en `globals.css` |
 | Logotipo del header de menú, perfil y sala | **Imagen** (`public/logo-header-duelo64.png`, logo Opción A): "Duelo 64" con mayúscula inicial, sans geométrica redondeada en negrita. No es una fuente instalada | `app/ui/header.tsx` |
 | "DUELO 64" del header de partida | Arial negrita | `app/ui/header-partida.tsx` |
 
 - Los números de la nube van en Geist Mono negrita, con 3 tamaños y un pequeño desorden fijo.
-- `layout.tsx` también carga **Geist Sans**, pero casi no se usa (solo el placeholder del campo "Código de sala", `placeholder:font-sans`). Quitarla es una mejora pendiente (SDD §12, riesgo 2); hasta entonces ese placeholder se ve en Geist Sans.
+- Ya no se carga **Geist Sans** (SDD v1.8, riesgo 2 resuelto). `font-sans` equivale a Arial; solo se usa para volver a Arial dentro de un campo `font-mono`, como el placeholder de "Código de sala" (`placeholder:font-sans`).
 - No agregues otras fuentes.
 
 ## Estilo de componentes

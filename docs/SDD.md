@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.7
+**Versión:** 1.8
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -183,7 +183,7 @@ Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → P
 | # | Tema | Detalle | Acción propuesta |
 |---|---|---|---|
 | 1 | Contraste | Texto blanco sobre `#3898EC` = 3.1:1 (no pasa AA) | Oscurecer el botón o usar texto oscuro |
-| 2 | Tipografía | La oficial es la actual (decisión 16): Arial en textos (`globals.css`), Geist Mono en números (`font-mono`, cargada en `layout.tsx`) y el logotipo del header como imagen (logo Opción A). `layout.tsx` también carga Geist Sans, que solo usa el placeholder del campo "Código de sala" | Quitar la carga de Geist Sans en `layout.tsx` (mantener Geist Mono). Pendiente en tareas.md |
+| 2 | Tipografía | ✓ Resuelto en v1.8: `layout.tsx` ya no carga Geist Sans. Quedan Arial en textos (`globals.css`, también como `--font-sans`), Geist Mono en números (`font-mono`, cargada en `layout.tsx`) y el logotipo del header como imagen. El placeholder de "Código de sala" (`placeholder:font-sans`) pasa a Arial | ✓ Capturas antes/después de `/login` y del menú a 390 y 1366 px |
 | 3 | Autoridad en el cliente | El árbitro es el navegador del jugador 1; un cliente modificado del creador podría alterar el estado | Mover la validación a una función del servidor (Edge Function) en una versión futura |
 | 4 | Dependencia del árbitro | Si el árbitro se desconecta, la partida depende del mecanismo de abandono | Aceptado para el MVP |
 | 5 | Logo del header | ✓ Resuelto en v1.5: el header usa `logo-header-duelo64.png` (Opción A) y la pestaña y el apple-icon usan `icono-duelo64.png` | ✓ Capturas regeneradas en v1.7 con el logo nuevo |
@@ -224,3 +224,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | 1.5 | 2026-11-14 | Logo Opción A aplicado: ícono de la pestaña y apple-icon con el ícono completo (cuadro azul con nube "64"), header con `logo-header-duelo64.png` sobre `#F5F8FF`; se copian ambos PNG a `docs/diseno/marca/`. Riesgo 5 resuelto. El logotipo pasa a "Duelo 64" con la letra de la Opción A |
 | 1.6 | 2026-11-14 | Historial de partidas dentro del perfil (spec006, RF-25, decisiones 19 y 20). Se agregan: tabla `historial_partidas` con RLS de solo lectura, trigger `registrar_historial` en `salas` (no bloquea el fin de partida), pruebas `historial.test.ts` con Vitest y color de victoria `#8A6100`. Sin ruta nueva ni botón en el menú |
 | 1.7 | 2026-11-14 | RF-25 publicado (PR #3; logo en PR #2). `historial_partidas` documentada con sus columnas reales (`sala_id`, `codigo`, …): ya existía y la llenan `terminar_partida` y `reclamar_abandono`; se descarta el trigger y se borra `supabase/historial-partidas.sql` (decisión 20 actualizada). Referencias regeneradas desde `master` con el logo nuevo y el historial (38 imágenes, incluido el perfil vacío). Evidencias y bitácora completas |
+| 1.8 | 2026-11-14 | Riesgo 2 resuelto: se quita la carga de Geist Sans en `layout.tsx`; `--font-sans` pasa a Arial en `globals.css`, así el placeholder de "Código de sala" queda en la fuente oficial de textos. Geist Mono se mantiene para los números (decisión 16 actualizada) |

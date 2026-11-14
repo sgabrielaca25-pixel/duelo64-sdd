@@ -45,4 +45,4 @@ Con `scripts/capturas-referencia.ts` (Playwright, tema claro). Las pantallas sin
 
 ## Pendiente de diseño (se ve así en las imágenes)
 - El texto blanco sobre el botón `#3898EC` tiene un contraste de 3.1:1 y no pasa WCAG AA (4.5:1).
-- Tipografía: la oficial es la actual (decisión 16): Arial en textos y Geist Mono en números. Falta quitar la carga de Geist Sans en `layout.tsx`, que casi no se usa.
+- Tipografía: la oficial es la actual (decisión 16): Arial en textos y Geist Mono en números. Geist Sans ya no se carga (SDD v1.8).
