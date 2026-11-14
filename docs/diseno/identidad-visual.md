@@ -4,29 +4,29 @@
 **Duelo 64** — el logo lleva al menú.
 
 ### Logo oficial: Opción A, nube "64" azul y roja
-Archivo: `docs/diseno/marca/logo-opcion-a.png`. La app es solo de tema claro: del logo se usan las versiones claras (el header oscuro de la hoja no aplica).
+Hoja completa: `docs/diseno/marca/logo-opcion-a.png`. Archivos que usa la app: `docs/diseno/marca/icono-duelo64.png` (ícono completo) y `docs/diseno/marca/logo-header-duelo64.png` (logo del header). La app es solo de tema claro: del logo se usan las versiones claras (el header oscuro de la hoja no aplica).
 - **Símbolo:** nube blanca con el número **64**: el **6 en azul** (`#0061A2`, jugador 1) y el **4 en rojo** (`#B3261E`, jugador 2). Representa el duelo entre los dos colores del juego y retoma la nube que ya usaba la app.
-- **Logotipo:** "Duelo 64" en una sans geométrica redondeada, negrita.
+- **Logotipo:** "Duelo 64" (mayúscula inicial) en una sans geométrica redondeada, negrita, en azul oscuro.
 
 | Aplicación | Cómo se usa |
 |---|---|
-| Ícono de app (180, 120 y 64 px) | Nube con "64" azul y rojo sobre cuadro redondeado azul `#3898EC` |
-| Favicon (32 y 16 px) | Solo la nube blanca sobre azul (sin número: no se lee a ese tamaño) |
-| Header claro | Nube + "Duelo 64" en negro sobre `#F5F8FF` |
+| Ícono de la pestaña del navegador (`app/icon.png`) | Ícono completo `icono-duelo64.png`: cuadro redondeado azul `#3898EC` con la nube "64" azul y roja |
+| Apple-icon (`app/apple-icon.png`) | El mismo ícono completo `icono-duelo64.png` |
+| Header claro (`app/ui/header.tsx`) | Imagen `logo-header-duelo64.png` (en el juego, `public/logo-header-duelo64.png`): nube "64" + "Duelo 64", sobre fondo `#F5F8FF`. Alto de unos 36 px en celular y 44 px en escritorio. Tocarla lleva al menú (`/jugar`) |
 | Una tinta | Negro sobre blanco, o calado en blanco sobre azul `#0061A2` |
 
 Reglas:
 - No cambiar los colores del 6 y el 4: siempre azul y rojo, en ese orden.
-- Por debajo de 32 px se usa solo la nube.
+- El ícono de la pestaña también usa el ícono completo con el "64" (no hay versión de solo la nube).
+- La imagen del header no tiene transparencia: va siempre sobre `#F5F8FF`.
 - El logotipo es imagen; los textos de la interfaz van en Arial y los números en Geist Mono (decisión 16).
 
 > El logo anterior (X entrelazada en cian) se descartó y queda archivado en `docs/diseno/marca/descartados/` (decisión 17).
 
-### ⚠ Pendiente: el header de la app aún usa el logo descartado
-Hoy (commit `bdc6357` del juego, "Header con la misma letra del logo") el header de menú, perfil y sala muestra la imagen `public/logo-duelo64-horizontal.png`: **X cian + "DUELO" oscuro + "64" cian**, recortada del logo X original. El header de partida muestra un círculo "64" y "DUELO 64" en Arial negrita.
-- La **letra** del logotipo actual se mantiene (decisión 16, ver Tipografía).
-- El **símbolo y los colores** (X cian) no cumplen la decisión 17: falta cambiarlos por la nube Opción A (tarea pendiente en `docs/sprints/tareas.md`, riesgo 5 del SDD §12).
-- Las referencias de `docs/diseno/referencias/` muestran el header tal como está hoy (con la X cian).
+### Estado en la app
+- El header de menú, perfil y sala usa el logo Opción A (`logo-header-duelo64.png`) y la pestaña y el apple-icon usan `icono-duelo64.png` (SDD v1.5, rama `logo-opcion-a` del juego).
+- El header de partida no cambia: sigue con un círculo "64" y "DUELO 64" en Arial negrita.
+- Las capturas de `docs/diseno/referencias/` todavía muestran el header anterior (X cian) hasta que se regeneren con `scripts/capturas-referencia.ts`.
 
 ## Tono de voz
 Directo, competitivo y amigable. Frases cortas. Tutea al jugador.
@@ -72,7 +72,7 @@ La tipografía oficial es **la que se ve hoy en la app** (decisión 16):
 |---|---|---|
 | Todos los textos (títulos en negrita, texto en regular) | **Arial**, con respaldo Helvetica y sans-serif | `body` en `app/globals.css` |
 | Números y códigos (`font-mono`): nube, contadores X/64, cronómetro, cuenta de 15 s, número objetivo, código de sala, código de 6 dígitos | **Geist Mono**, en negrita | `next/font/google` en `app/layout.tsx` → `--font-geist-mono` → `--font-mono` en `globals.css` |
-| Logotipo del header de menú, perfil y sala | **Imagen** (`public/logo-duelo64-horizontal.png`): "DUELO" y "64" en mayúsculas, sans geométrica de trazo uniforme y letras espaciadas, recortadas del logo original. No es una fuente instalada | `app/ui/header.tsx` |
+| Logotipo del header de menú, perfil y sala | **Imagen** (`public/logo-header-duelo64.png`, logo Opción A): "Duelo 64" con mayúscula inicial, sans geométrica redondeada en negrita. No es una fuente instalada | `app/ui/header.tsx` |
 | "DUELO 64" del header de partida | Arial negrita | `app/ui/header-partida.tsx` |
 
 - Los números de la nube van en Geist Mono negrita, con 3 tamaños y un pequeño desorden fijo.

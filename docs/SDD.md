@@ -1,6 +1,6 @@
 # Duelo 64 — Software Design Document
 
-**Versión:** 1.4
+**Versión:** 1.5
 **Actualizado:** 2026-11-14
 **Estado:** MVP implementado y publicado. Documentación SDD formalizada en la Unidad 3 (M4).
 **Producto:** juego web multijugador 1 contra 1, en tiempo real
@@ -168,7 +168,7 @@ Estado de la partida (`EstadoPartida`): `fase`, `nombres`, `nube`, `activo`, `ob
 
 ## 11. Diseño de interfaz
 - Identidad visual completa: `docs/diseno/identidad-visual.md`
-- Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`. El header publicado aún muestra la X cian descartada (ver §12, riesgo 5)
+- Logo oficial (Opción A, nube "64" azul y roja): `docs/diseno/marca/logo-opcion-a.png`. El header usa `logo-header-duelo64.png` y la pestaña y el apple-icon usan el ícono completo `icono-duelo64.png` (ver `docs/diseno/identidad-visual.md`)
 - Tipografía (decisión 16): Arial en textos, Geist Mono en números y códigos, logotipo del header como imagen
 - Pantallas de referencia: `docs/diseno/referencias/`, 36 imágenes en móvil y escritorio (empezar por `00-mapa-de-pantallas.png`); se regeneran con `scripts/capturas-referencia.ts`
 
@@ -178,10 +178,10 @@ Recorrido: Login → Menú (`/jugar`) → Sala de espera o Partida rápida → P
 | # | Tema | Detalle | Acción propuesta |
 |---|---|---|---|
 | 1 | Contraste | Texto blanco sobre `#3898EC` = 3.1:1 (no pasa AA) | Oscurecer el botón o usar texto oscuro |
-| 2 | Tipografía | La oficial es la actual (decisión 16): Arial en textos (`globals.css`), Geist Mono en números (`font-mono`, cargada en `layout.tsx`) y la letra del logo en el header (imagen). `layout.tsx` también carga Geist Sans, que solo usa el placeholder del campo "Código de sala" | Quitar la carga de Geist Sans en `layout.tsx` (mantener Geist Mono). Pendiente en tareas.md |
+| 2 | Tipografía | La oficial es la actual (decisión 16): Arial en textos (`globals.css`), Geist Mono en números (`font-mono`, cargada en `layout.tsx`) y el logotipo del header como imagen (logo Opción A). `layout.tsx` también carga Geist Sans, que solo usa el placeholder del campo "Código de sala" | Quitar la carga de Geist Sans en `layout.tsx` (mantener Geist Mono). Pendiente en tareas.md |
 | 3 | Autoridad en el cliente | El árbitro es el navegador del jugador 1; un cliente modificado del creador podría alterar el estado | Mover la validación a una función del servidor (Edge Function) en una versión futura |
 | 4 | Dependencia del árbitro | Si el árbitro se desconecta, la partida depende del mecanismo de abandono | Aceptado para el MVP |
-| 5 | Logo del header | El header (`header.tsx`, commit `bdc6357`) muestra la X cian descartada en la decisión 17, no la nube Opción A | Cambiar el símbolo y los colores a la Opción A, manteniendo la letra actual. Pendiente en tareas.md |
+| 5 | Logo del header | ✓ Resuelto en v1.5: el header usa `logo-header-duelo64.png` (Opción A) y la pestaña y el apple-icon usan `icono-duelo64.png` | Regenerar las capturas de `docs/diseno/referencias/`, que aún muestran la X cian |
 
 ## 13. Pruebas y calidad
 - **Vitest:** simulación de partidas con dos jugadores falsos y Supabase simulado (sincronización, turno de 15 s, abandono, partida rápida).
@@ -215,3 +215,4 @@ Ver `docs/infraestructura/despliegue.md`.
 | 1.2 | 2026-11-14 | Logo oficial Opción A (decisión 17), nueva URL https://juegoduelo64.vercel.app y repositorio en la cuenta sgabrielaca25-pixel (decisión 18) |
 | 1.3 | 2026-11-14 | Se quitan las referencias y la propuesta de modo oscuro: la app es solo de tema claro |
 | 1.4 | 2026-11-14 | Fuente actual como oficial: Arial + Geist Mono + letra del logo en el header (decisión 16). Riesgo 5: el header aún usa el logo X cian. Referencias completas: 15 pantallas en móvil y escritorio y 2 mapas (36 imágenes), con el script `scripts/capturas-referencia.ts` |
+| 1.5 | 2026-11-14 | Logo Opción A aplicado: ícono de la pestaña y apple-icon con el ícono completo (cuadro azul con nube "64"), header con `logo-header-duelo64.png` sobre `#F5F8FF`; se copian ambos PNG a `docs/diseno/marca/`. Riesgo 5 resuelto. El logotipo pasa a "Duelo 64" con la letra de la Opción A |

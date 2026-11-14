@@ -33,5 +33,5 @@
 
 ## Mejoras pendientes (propuestas, aún fuera del MVP)
 - [ ] Quitar la carga de **Geist Sans** en `layout.tsx`: solo la usa el placeholder del campo "Código de sala" (`placeholder:font-sans`). **Geist Mono sí se usa** (`font-mono`) y se queda
-- [ ] Cambiar el header (`app/ui/header.tsx`, `public/logo-duelo64-horizontal.png`) al logo oficial Opción A: hoy muestra la X cian descartada (decisión 17). Mantener la letra actual del logotipo
+- [x] Cambiar el header (`app/ui/header.tsx`) y el ícono de la pestaña al logo oficial Opción A (decisión 17): header con `public/logo-header-duelo64.png`, `app/icon.png` y `app/apple-icon.png` con el ícono completo (SDD v1.5, rama `logo-opcion-a`)
 - [ ] Ajustar textos blancos pequeños sobre `#3898EC` / `#E5536B` para cumplir AA (ver identidad-visual.md)
